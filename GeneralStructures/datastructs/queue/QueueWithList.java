@@ -5,8 +5,8 @@ import datastructs.interfaces.QueueInterface;
 
 public class QueueWithList<K> extends DoubleList<K> implements QueueInterface<K> {	
 	
-	public int Dequeue(){
-		int removed = (Integer) super.cut();
+	public K Dequeue(){
+		K removed = super.cut();
 		return removed;
 	}
 	

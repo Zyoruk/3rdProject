@@ -1,20 +1,20 @@
-package datastructs.graphs;
+ package datastructs.graphs;
 
 import datastructs.simplelist.SimpleList;
 
-public class GraphNode<K> {
+public class Vertex<K> {
 	private K _element;
 	private Graph<K> _MyOwner;
-	private SimpleList <Link<K>> _nodePointers;
+	private SimpleList <Edge<K>> _vertexPointers;
 	private boolean _Processed;
 	
-	public GraphNode(){
+	public Vertex(){
 		this(null, null);
 	}
 	
-	public GraphNode(K pElement, Graph<K> pOwnerGraph){
+	public Vertex(K pElement, Graph<K> pOwnerGraph){
 		this._element = pElement;
-		this._nodePointers = new SimpleList<Link<K>>();
+		this._vertexPointers = new SimpleList<Edge<K>>();
 		this._MyOwner = pOwnerGraph;
 		this._Processed = false;
 	}
@@ -25,20 +25,20 @@ public class GraphNode<K> {
 	 * @param pWeight	It is the weight associated to the link between the
 	 * nodes
 	 */
-	public void connectTo(GraphNode<K> pOtherNode, int pWeight){
-		Link <K> link = new Link<K> (this, pOtherNode, pWeight);
-		if(!this._nodePointers.exists(link)){
-			this._nodePointers.append(link);
+	public void connectTo(Vertex<K> pOtherNode, int pWeight){
+		Edge <K> link = new Edge<K> (this, pOtherNode, pWeight);
+		if(!this._vertexPointers.exists(link)){
+			this._vertexPointers.append(link);
 		}
-		SimpleList<Link<K>> OtherNodeConnections = pOtherNode.getConnections();
+		SimpleList<Edge<K>> OtherNodeConnections = pOtherNode.getConnections();
 		if (!OtherNodeConnections.exists(link)){
 			OtherNodeConnections.append(link);
 		}
 	}
 	
 	//Getters and setters
-	public SimpleList<Link<K>> getConnections(){
-		return this._nodePointers;
+	public SimpleList<Edge<K>> getConnections(){
+		return this._vertexPointers;
 	}
 		
 	public K getElement(){

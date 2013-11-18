@@ -1,34 +1,33 @@
 package datastructs.graphs;
 
-public class Link<K> {
+public class Edge<K> {
 	
 	private int _Weight;
-	private GraphNode<K> _ConnectFrom;
-	private GraphNode<K> _ConnetTo;
+	private Vertex<K> _ConnectFrom;
+	private Vertex<K> _ConnetTo;
 
-	public Link(GraphNode<K> pConnectFromNode, GraphNode<K> pConnectToNode) {
+	public Edge(Vertex<K> pConnectFromNode, Vertex<K> pConnectToNode) {
 		this._Weight = 0;
 		this._ConnectFrom = pConnectFromNode;
 		this._ConnetTo = pConnectToNode;
 	}
 
-	public Link(GraphNode<K> pConnectFromNode, GraphNode<K> pConnectToNode,
+	public Edge(Vertex<K> pConnectFromNode, Vertex<K> pConnectToNode,
 				int pDistance) {		
 		this._Weight = pDistance;
 		this._ConnectFrom = pConnectFromNode;
 		this._ConnetTo = pConnectToNode;
 	}
 	
-	
-	public void setFromNode(GraphNode<K> pFromNode){
+	public void setFromNode(Vertex<K> pFromNode){
 		this._ConnectFrom = pFromNode;
 	}
 	
-	public GraphNode<K> getFromNode(){
+	public Vertex<K> getFromNode(){
 		return this._ConnectFrom;
 	}
 	
-	public GraphNode<K> getToNode(){
+	public Vertex<K> getToNode(){
 		return this._ConnetTo;
 	}
 	

@@ -23,19 +23,36 @@ public class BountyHunter {
 	}
 	
 	public int returnPoints(){
-		return this._Bounty;
+		int PointsToReturn = this._Bounty;
+		this._Bounty = 0;
+		return PointsToReturn;
 	}
 	
-	public void takeBounty(){
+	public int takeBounty(Region currentRegion){
+			this._Bounty = this._Bounty + currentRegion.getBounty();
+			this._TargetRegion = this._PlacesToVisit.Dequeue().getID();		
+			return this._Bounty;
+	}
+	
+	public String returnHome(){
+		if (this._ForeignDomain != this._HomeDomain){
+			//exitCurrentDomain();
+			this._ForeignDomain = this._HomeDomain;
+		}else{
+			System.out.print("BT is in home domain.");
+		}
+		return this._ForeignDomain;
 		
 	}
 	
-	public void returnHome(){
-		
-	}
-	
-	public void receiveNewMission(Region newRegionToVisit){
-		
+	public boolean receiveNewMission(Region newRegionToVisit){
+		if (!(this._PlacesToVisit.exists(newRegionToVisit))){
+			this._PlacesToVisit.append(newRegionToVisit);
+			return true;
+		}else{
+			System.out.println("Region already in the list");
+			return false;
+		}
 	}
 	
 	public void setNewTargetRegion(Region newTargetRegion){
@@ -44,5 +61,9 @@ public class BountyHunter {
 	
 	public String getPosition(){
 		return this._ForeignRegion;
+	}
+	
+	public int getID(){
+		return this._MyID;
 	}
 }

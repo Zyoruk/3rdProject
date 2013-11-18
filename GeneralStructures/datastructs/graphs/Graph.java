@@ -5,33 +5,42 @@ import datastructs.simplelist.SimpleList;
 
 public class Graph<K> implements DataStructure<K> {
 
-	private SimpleList<GraphNode<K>> _NodeList;
-	//Adjacency
-	private SimpleList<Link<K>> _LinkList;
+	private SimpleList<Vertex<K>> _NodeList;
+	private SimpleList<Edge<K>> _EdgeList;
 	
-	public void addNode(GraphNode<K> pNewNode){
+	
+	public void addNode(Vertex<K> pNewNode){
 		if(!this._NodeList.exists(pNewNode)){
 			this._NodeList.append(pNewNode);
 		}
 	}
 	
-	public void linkNodes(GraphNode<K> pFromNode , GraphNode<K> pToNode ,
+	public void linkNodes(Vertex<K> pFromNode , Vertex<K> pToNode ,
 						  int pWeight){
-		SimpleList<Link<K>> temp = this._LinkList;
+		SimpleList<Edge<K>> temp = this._EdgeList;
 		
-		for(int i = 0 ; i < this._LinkList.length() ; i++){
-			Link<K> LinkToEvaluate = temp.deleteHead();
+		for(int i = 0 ; i < this._EdgeList.length() ; i++){
+			Edge<K> LinkToEvaluate = temp.deleteHead();
 			
 			if ((LinkToEvaluate.getFromNode() != pFromNode &&
 				LinkToEvaluate.getToNode() != pToNode) &&
 				LinkToEvaluate.getWeight() != pWeight){
 				
-				Link<K> LinkToAdd = new Link(pFromNode , pToNode , pWeight);
-				this._LinkList.append(LinkToAdd);
+				Edge<K> LinkToAdd = new Edge<K>(pFromNode , pToNode , pWeight);
+				this._EdgeList.append(LinkToAdd);
 				break;
 			}
 		}
 	}
+	
+	public int getOrder(){
+		return this._NodeList.length();
+	}
+
+	public int getSize(){
+		return this._EdgeList.length();
+	}
+	
 	@Override
 	public String describe() {
 		// TODO Auto-generated method stub
@@ -40,10 +49,10 @@ public class Graph<K> implements DataStructure<K> {
 
 	@Override
 	public boolean exists(K pk) {
-		GraphNode<K> NodeToCompare = new GraphNode<K> (pk , this);
-		SimpleList<GraphNode<K>> temp = this._NodeList;
+		Vertex<K> NodeToCompare = new Vertex<K> (pk , this);
+		SimpleList<Vertex<K>> temp = this._NodeList;
 		for (int i = 0 ; i < this._NodeList.length() ; i++){
-			GraphNode<K> current = temp.deleteHead();
+			Vertex<K> current = temp.deleteHead();
 			if(current.getElement() == NodeToCompare.getElement()){
 				return true;
 			}
@@ -58,9 +67,19 @@ public class Graph<K> implements DataStructure<K> {
 
 	@Override
 	public int length() {
-		return this._NodeList.length();
+		return 0;
+	}
+	
+	public SimpleList<Vertex<K>> getNodes(){
+		return this._NodeList;
+	}
+	
+	public SimpleList<Edge<K>> getEdges(){
+		return this._EdgeList;
 	}
 	
 	// calcular ruta más rapida.
+	
+	public void DijsktraAlgorithm(){}
 
 }

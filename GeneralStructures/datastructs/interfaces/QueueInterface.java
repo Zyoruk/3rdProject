@@ -11,7 +11,7 @@ public interface QueueInterface<K> extends DataStructure<K> {
 	/**
 	 * Removes the last element
 	 */
-	public int Dequeue();
+	public K Dequeue();
 	/**
 	 * Adds the element in the first position
 	 * @param pk

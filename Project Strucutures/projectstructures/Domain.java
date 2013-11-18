@@ -1,10 +1,8 @@
 package projectstructures;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.Enumeration;
 
 import datastructs.simplelist.SimpleList;
@@ -19,7 +17,6 @@ import datastructs.graphs.Graph;
 public class Domain<K> extends Graph<K> {
 
 	private static String IP;
-	private SimpleList<String> _EachBountyHunterposition;
 	private boolean _Halt;
 	private SimpleList<BountyHunter> _MyBountyHunters;
 	private int _MyCurrentPoints;
@@ -30,23 +27,27 @@ public class Domain<K> extends Graph<K> {
 	 * using the current machine IP.
 	 */
 	public Domain(){
-		this._EachBountyHunterposition = new SimpleList<String>();
 		this._Halt = false;
 		this._MyCurrentPoints= 0;
 		this._RegionList = new SimpleList<Region>();
-		
 		try {
-			Domain.IP = Inet4Address.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {
+			Domain.IP = this.setIp();
+		} catch (SocketException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
 	 * This will make every bounty hunter to send their carried points to the
 	 * home domain.
 	 */
-	public void askForBountyPoints(){}
+	public void askForBountyPoints(){
+		SimpleList<BountyHunter> tempList = this._MyBountyHunters;
+		for (int i = 0; i < this._MyBountyHunters.length();i++){
+			tempList.deleteHead().returnPoints();
+		}
+	}
 
 	/**
 	 * Creates a new BountyHunter, cannot do it directly into a foreign domain.
@@ -77,21 +78,6 @@ public class Domain<K> extends Graph<K> {
 	}
 
 	/**
-	 * For every bounty hunter, the domain should know their current positions.
-	 */
-	public void getBountyHunterPosition(){
-		
-		if (!(this._MyBountyHunters.isEmpty())){
-			SimpleList<BountyHunter> temporalList = this._MyBountyHunters;
-			
-			for (int i = 0; i<this._MyBountyHunters.length();i++){
-				BountyHunter current = temporalList.deleteHead();
-				this._EachBountyHunterposition.append(current.getPosition());
-			}
-		}
-	}
-
-	/**
 	 * This gets the current Domain's IP.
 	 * @return Domain's IP
 	 */
@@ -118,19 +104,36 @@ public class Domain<K> extends Graph<K> {
 	/**
 	 * Tells every bounty hunter to return home.
 	 */
-	public void recallBountyHunter(){}
+	public void recallBountyHunter(){
+		SimpleList<BountyHunter> tempList = this._MyBountyHunters;
+		for (int i = 0; i < this._MyBountyHunters.length();i++){
+			tempList.deleteHead().returnHome();
+		}
+	}
 
 
 	/**
 	 * Tells the bounty hunter to visit a new Arduino.
 	 * @param pBountyHunterID the ID of the Bounty hunter.	
 	 */
-	public void setNewMision(int pBountyHunterID){ }
+	public void setNewMision(int pBountyHunterID, Region RegionToVisit){
+		SimpleList<BountyHunter> temp = this._MyBountyHunters;
+		for (int i = 0; i < this._MyBountyHunters.length();i++){
+			BountyHunter tempHunter = temp.deleteHead();
+			if (tempHunter.getID() == pBountyHunterID){
+				tempHunter.setNewTargetRegion(RegionToVisit);
+			}
+		}
+	}
 	
 	
-	
-	public void getIp() throws SocketException{
+	/**
+	 * Method to get the IP of the running computer.
+	 * @throws SocketException
+	 */
+	public String setIp() throws SocketException{
 		Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+		String tempIP = "There is no IP";
 		while (interfaces.hasMoreElements()){
 		    NetworkInterface current = interfaces.nextElement();
 		    if (!current.isUp() || current.isLoopback() || current.isVirtual()) continue;
@@ -139,8 +142,9 @@ public class Domain<K> extends Graph<K> {
 		        InetAddress current_addr = addresses.nextElement();
 		        if (current_addr.isLoopbackAddress()) continue;
 		        if (current_addr.isLinkLocalAddress())continue; 
-		        System.out.println(current_addr.getHostAddress());	     	
+		        tempIP = current_addr.getHostAddress();
 		    }
 		}
+		return tempIP;
 	}
 }
