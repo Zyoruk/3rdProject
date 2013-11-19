@@ -50,7 +50,6 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 
     @Override
 	public K cut() {
-		// TODO Auto-generated method stub
 		SimpleListNode<K> current = this.head;
 		while(current.getNext() != this.tail){
 			current = current.getNext();
@@ -62,7 +61,6 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 
     @Override
     public boolean delete(){
-//    	_start = System.currentTimeMillis();
         //Set tmp list
         SimpleListNode<K> node = this.head.getNext();
         
@@ -71,8 +69,6 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         
         //Set new list
         this.head = node;
-//        _end = System.currentTimeMillis();
-//        System.out.println("Delete lasted:  " + getExecuteTime());
         return true;
 
 
@@ -127,12 +123,26 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
     }
 
     public K deleteHead() {
-//    	_start = System.currentTimeMillis();
-    	SimpleListNode<K> node = this.head;
-    	this.head = this.head.getNext();
-//    	_end = System.currentTimeMillis();
-//    	System.out.println("DeleteHead lasted:  " + getExecuteTime());
-        return node.getElem();
+    	if (this.isEmpty()){
+    		return null;
+    	}
+    	if(this.head.getNext() != null){
+	        SimpleListNode<K> node = this.head.getNext();
+	        SimpleListNode<K> toreturn = this.head;
+	        
+	        //Destroy
+	        this.head = null;
+	        
+	        //Set new list
+	        this.head = node;
+	        return toreturn.getElem();
+//    	}else if (this.head != null){
+//    		return this.head.getElem();
+    	}else{
+    		SimpleListNode<K> toreturn = this.head;
+    		this.head = null;
+    		return toreturn.getElem();
+    	}
     }
     
     public String describe() {
@@ -243,12 +253,6 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
     public int length() {
         return this.length;
     }
-
-//	@Override
-//	public double getExecuteTime() {
-//		double executeTime = this._end - this._start;
-//		return executeTime;
-//	}
 }
 
 class SimpleListIterator<K> implements Iterator<K> {

@@ -8,9 +8,12 @@ public class Graph<K> implements DataStructure<K> {
 	private SimpleList<Vertex<K>> _NodeList;
 	private SimpleList<Edge<K>> _EdgeList;
 	
-	
+	public Graph(){
+		this._NodeList = new SimpleList<Vertex<K>>();
+		this._EdgeList = new SimpleList<Edge<K>>();
+	}
 	public void addNode(Vertex<K> pNewNode){
-		if(!this._NodeList.exists(pNewNode)){
+		if(this._NodeList.exists(pNewNode)==false){
 			this._NodeList.append(pNewNode);
 		}
 	}
@@ -43,17 +46,30 @@ public class Graph<K> implements DataStructure<K> {
 	
 	@Override
 	public String describe() {
-		// TODO Auto-generated method stub
-		return null;
+		SimpleList<Vertex<K>> backup = this._NodeList;
+        StringBuilder result = new StringBuilder();
+        result.append("List: ");
+        SimpleList<Vertex<K>>  temp = this._NodeList;
+        for(int i = 0; i < this._NodeList.length(); i++) {
+        	Vertex<K> temporal = temp.deleteHead();
+        	if (temporal != null){
+        		result.append(String.format("%s ", temporal.getElement().toString()));
+        	}
+        }
+        result.append("\n");
+        this._NodeList = backup;
+        return result.toString();
 	}
 
 	@Override
 	public boolean exists(K pk) {
-		Vertex<K> NodeToCompare = new Vertex<K> (pk , this);
 		SimpleList<Vertex<K>> temp = this._NodeList;
-		for (int i = 0 ; i < this._NodeList.length() ; i++){
-			Vertex<K> current = temp.deleteHead();
-			if(current.getElement() == NodeToCompare.getElement()){
+		for(int i = 0; i < this._NodeList.length();i++){
+			Vertex<K>  nodetodelete = temp.deleteHead();
+			if (nodetodelete == null){
+				break;
+			}
+			if (nodetodelete.getElement() == pk){
 				return true;
 			}
 		}
