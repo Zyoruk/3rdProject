@@ -1,13 +1,7 @@
 package datastructs.graphs;
 
 import datastructs.simplelist.SimpleList;
-/**
- * This class resolves the problem to get the shortest path from one node to
- * another
- * @author zyoruk
- *
- * @param <K>
- */
+
 
 public class Dijkstra <K> {
 	private Vertex<Character> startNode;
@@ -31,11 +25,10 @@ public class Dijkstra <K> {
 		this.arrayDistances = new int [this.graph.getOrder()];
 		
 		this.distance = 0;
-		// Sets all the distances to infinity
+		
 		for (int i = 0 ; i < this.arrayDistances.length;i++){
 			this.arrayDistances[i] = Integer.MAX_VALUE;
 		}
-		// Builds the array of vertexes
 		for (Vertex<K> k : this.graph.getVertexes()){
 			int i = 0;
 			this.arrayVertexes[i][1] = (Character) k.getElement();
@@ -44,9 +37,6 @@ public class Dijkstra <K> {
 		
 	}
 	
-	/**
-	 * Calculates the shortest path
-	 */
 	public void execute(){
 		while(this.unprocessed.length() !=0){
 			for (int i = 0 ; i < this.arrayVertexes.length;i++){
@@ -71,11 +61,7 @@ public class Dijkstra <K> {
 	}
 	
 
-	/**
-	 * The class needs to know the exact node we are going to evaluate
-	 * @param node data the node should have
-	 * @return the node that contains such data
-	 */
+	
 	private Vertex<K> evaluatedNode(char node){
 		for(Vertex<K> k : this.graph.getVertexes()){
 			if(k.equals(node) && this.unprocessed.exists(k)){
@@ -85,10 +71,6 @@ public class Dijkstra <K> {
 		return null;
 	}
 	
-	/**
-	 * The class needs to set another node to be evaluated
-	 * @return the node with the lightest weight
-	 */
 	private Vertex<Character> getLighter(){
 		int lighter = Integer.MAX_VALUE;
 		Vertex<Character> vertex; 
