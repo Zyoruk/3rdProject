@@ -263,6 +263,35 @@ public class Graph<K> implements DataStructure<K> {
 			}
 		}
 	}
+	
+	public SimpleList<Vertex<K>> getUnprocessedOnes(){
+		SimpleList<Vertex<K>> unprocessed = new SimpleList<Vertex<K>>();
+		for (Vertex<K> k : this._NodeList){
+			if(!k.getIfProcessed()){
+				unprocessed.append(k);
+			}else{
+				
+			}
+		}
+		return unprocessed;
+	}
+	
+	public SimpleList<Vertex<K>> getProcessedOnes(){
+		SimpleList<Vertex<K>> Processed = new SimpleList<Vertex<K>>();
+		for (Vertex<K> k : this._NodeList){
+			if(k.getIfProcessed()){
+				Processed.append(k);
+			}else{
+				
+			}
+		}
+		return Processed;
+	}
+	
+	public void setAsProcessed(K data){
+		Vertex<K> ToSet = this.getVertexThatContains(data);
+		ToSet.setIfProcessed(true);
+	}
 
 	/**
 	 * This method calls the already implemented Dijsktra Algorithm, because we
@@ -276,8 +305,9 @@ public class Graph<K> implements DataStructure<K> {
 	 *            Since we need to know all the methods of it and its current
 	 *            lists.
 	 */
-	public void DijsktraAlgorithm(Vertex<K> fromNode, Vertex<K> toNode,
-			Graph<Vertex<K>> graph) {
-	}
+//	public void DijsktraAlgorithm(String fromNode) {
+//		DijkstraV2<K> Dijkstra = new DijkstraV2(fromNode, this);
+//		Dijkstra.execute();
+//	}
 
 }
