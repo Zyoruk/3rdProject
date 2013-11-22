@@ -10,7 +10,7 @@ public class DijkstraAlgorithm <K> {
 	private int distance;
 	
 	public DijkstraAlgorithm(Graph pGraph){
-		this._Nodes = pGraph.getNodes();
+		this._Nodes = pGraph.getVertexes();
 		this._Edges = pGraph.getEdges();
 	}
 	

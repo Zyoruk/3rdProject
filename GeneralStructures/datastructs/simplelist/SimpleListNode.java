@@ -2,7 +2,7 @@ package datastructs.simplelist;
 
 
 
-class SimpleListNode<K> {
+public class SimpleListNode<K> {
     
     protected K elem;
     protected SimpleListNode<K> next;

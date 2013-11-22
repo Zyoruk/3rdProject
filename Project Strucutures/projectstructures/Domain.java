@@ -71,7 +71,7 @@ public class Domain<K> extends Graph<K> {
 	 * The programm will need somehow to know the Bounty Hunter list for some 
 	 * methods. So, we don't want to make the local fields public , we just 
 	 * implement a getter when needed.
-	 * @return
+	 * @return List of bounty hunters
 	 */
 	public SimpleList<BountyHunter> getBountyHunterList(){
 		return this._MyBountyHunters;

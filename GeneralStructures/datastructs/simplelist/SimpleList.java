@@ -136,8 +136,6 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 	        //Set new list
 	        this.head = node;
 	        return toreturn.getElem();
-//    	}else if (this.head != null){
-//    		return this.head.getElem();
     	}else{
     		SimpleListNode<K> toreturn = this.head;
     		this.head = null;
@@ -145,9 +143,10 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
     	}
     }
     
-    public String describe() {
+    @Override
+	public String describe() {
         StringBuilder result = new StringBuilder();
-
+        try{
         result.append("List: ");
         for(K k : this) {
             result.append(String.format("%s ", k.toString()));
@@ -161,22 +160,21 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         result.append(
                 String.format("Tail: %s\n", this.tail.getElem().toString())
             );
+        }catch (NullPointerException e){
+        	System.out.println("Nothing to describe");
+        }
 
         return result.toString();
     }
 
     @Override
     public boolean exists(K pk) {
-//    	_start = System.currentTimeMillis();
         for(K ck : this) {
             if(ck.equals(pk)) {
-//            	_end = System.currentTimeMillis();
-//            	System.out.println("Delete lasted:  " + getExecuteTime());
+            	
                 return true;
             }
         }
-//        _end = System.currentTimeMillis();
-//        System.out.println("Delete lasted:  " + getExecuteTime());
         return false;
     }
 
@@ -253,6 +251,10 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
     public int length() {
         return this.length;
     }
+	
+	public SimpleListNode<K> getHead(){
+		return this.head;
+	}
 }
 
 class SimpleListIterator<K> implements Iterator<K> {

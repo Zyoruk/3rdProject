@@ -1,80 +1,89 @@
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import datastructs.graphs.Graph;
 import datastructs.graphs.Vertex;
+import datastructs.simplelist.SimpleList;
+import datastructs.simplelist.SimpleListNode;
 
 
 public class GraphTester<K> {
-
+	Graph<String> ourGraph = CreateSetAddNode();
 	@Test
 	public void test() {
-		createGraph();
+
+		System.out.println("Test Begin \n");
+		System.out.println(ourGraph.describe()+ "\n");
+		
+		System.out.println("Is there a node <A>? " + ourGraph.exists("A"));
+		System.out.println("Is there a node <Z>? " + ourGraph.exists("Z"));
+		System.out.println("Is there a node <B>? " + ourGraph.exists("B"));
+		System.out.println("Is there a node <as>? " + ourGraph.exists("as"));
+		System.out.println("Is there a node <C>? " + ourGraph.exists("C"));
+		System.out.println("Is there a node <J>? " + ourGraph.exists("J"));
+		
+		
+		ourGraph.linkNodes("A", "B", 45);
+		ourGraph.linkNodes("B", "C", 50);
+		ourGraph.linkNodes("C", "D", 4);
+		ourGraph.linkNodes("D", "E", 5);
+		ourGraph.linkNodes("E", "F", 3);
+		System.out.println("Number of vertexes" + ourGraph.getOrder() + "\n");
+		System.out.println("Number of edges" + ourGraph.getSize() + "\n");
+				
+		ourGraph.removeVertex("A");
+		ourGraph.removeVertex("D");
+		System.out.println(ourGraph.describe());
+		
+		ourGraph.removeLink("A", "B");
+		ourGraph.removeLink("A", "B");
+		ourGraph.removeLink("B", "C");
+		
+		System.out.println(ourGraph.getSize());
+		
 	}
 	
-	private void createGraph(){
-		Graph<String> testGraph = new Graph<String>();
-		
+
+	
+	private Graph<String> CreateSetAddNode(){
+		this.ourGraph = new Graph<String>();
 		//Create vertexes to add
-		Vertex<String> vertex1 =  new Vertex<String>();
-		Vertex<String> vertex2 =  new Vertex<String>();
-		Vertex<String> vertex3 =  new Vertex<String>();
-		Vertex<String> vertex4 =  new Vertex<String>();
-		Vertex<String> vertex5 =  new Vertex<String>();
-		Vertex<String> vertex6 =  new Vertex<String>();
-		Vertex<String> vertex7 =  new Vertex<String>();
-		Vertex<String> vertex8 =  new Vertex<String>();
-		Vertex<String> vertex9 =  new Vertex<String>();
-		Vertex<String> vertex0 =  new Vertex<String>();
+		Vertex<String> vertex1 =  new Vertex<String>("A",this.ourGraph);
+		Vertex<String> vertex2 =  new Vertex<String>("B",this.ourGraph);
+		Vertex<String> vertex3 =  new Vertex<String>("C",this.ourGraph);
+		Vertex<String> vertex4 =  new Vertex<String>("D",this.ourGraph);
+		Vertex<String> vertex5 =  new Vertex<String>("E",this.ourGraph);
+		Vertex<String> vertex6 =  new Vertex<String>("F",this.ourGraph);
+		Vertex<String> vertex7 =  new Vertex<String>("G",this.ourGraph);
+		Vertex<String> vertex8 =  new Vertex<String>("H",this.ourGraph);
+		Vertex<String> vertex9 =  new Vertex<String>("I",this.ourGraph);
+		Vertex<String> vertex0 =  new Vertex<String>("J",this.ourGraph);
 		
-		//Setting every node an element
-		System.out.println("Testing if every node got the element set");
-		vertex1.setElement("A");
-		System.out.println("-Set A" + " got " + vertex1.getElement());
-		vertex2.setElement("B");
-		System.out.println("-"+"Set B" + " got "+vertex2.getElement());
-		vertex3.setElement("C");
-		System.out.println("-"+ "Set C" + " got " +vertex3.getElement());
-		vertex4.setElement("D");
-		System.out.println("-"+"Set D" + " got " +vertex4.getElement());
-		vertex5.setElement("E");
-		System.out.println("-"+"Set E" + " got " +vertex5.getElement());
-		vertex6.setElement("F");
-		System.out.println("-"+"Set F" + " got " +vertex6.getElement());
-		vertex7.setElement("G");
-		System.out.println("-"+"Set G" + " got " +vertex7.getElement());
-		vertex8.setElement("H");
-		System.out.println("-"+"Set H" + " got " +vertex8.getElement());
-		vertex9.setElement("I");
-		System.out.println("-"+ "Set I" + " got " +vertex9.getElement());
-		vertex0.setElement("J");
-		System.out.println("-"+"Set J" + " got " +vertex0.getElement());
-		System.out.println("END OF TEST\n");
+		this.ourGraph.addNode(vertex1);
+		this.ourGraph.addNode(vertex2);
+		this.ourGraph.addNode(vertex3);
+		this.ourGraph.addNode(vertex4);
+		this.ourGraph.addNode(vertex5);
+		this.ourGraph.addNode(vertex6);
+		this.ourGraph.addNode(vertex7);
+		this.ourGraph.addNode(vertex8);
+		this.ourGraph.addNode(vertex9);
+		this.ourGraph.addNode(vertex0);
 		
-		//Add them to the graph
-		System.out.println("Testing to add every node");
-		testGraph.addNode(vertex1);
-		testGraph.addNode(vertex2);
-		testGraph.addNode(vertex3);
-		testGraph.addNode(vertex4);
-		testGraph.addNode(vertex5);
-		testGraph.addNode(vertex6);
-		testGraph.addNode(vertex7);
-		testGraph.addNode(vertex8);
-		testGraph.addNode(vertex9);
-		testGraph.addNode(vertex0);
-		System.out.println("Graph Nodes : ");
-		System.out.println(testGraph.describe());
-		System.out.println("END OF TEST\n");
-		
-		//
-		System.out.println("testing if a node exists");
-		System.out.println(testGraph.describe());
-		System.out.println("Is there a node <A>? " + testGraph.exists("A"));
-		System.out.println("Is there a node <Z>? " + testGraph.exists("Z"));
-		System.out.println("Is there a node <B>? " + testGraph.exists("B"));
-		System.out.println("END OF TEST\n");
-		//
+		return this.ourGraph;
+	}
+	
+	public void describe(Graph<String> testGraph){
+		SimpleList<Vertex<String>>temp =testGraph.getVertexes();
+		SimpleListNode<Vertex<String>> current = temp.getHead();
+		SimpleListNode<Vertex<String>> nextTo = current.getNext();
+		for(int i = 0 ; i < testGraph.getVertexes().length();i++){
+			try{
+				System.out.println(current.getElem().getElement() + "  "+nextTo.getElem().getElement());
+				current = nextTo;
+				nextTo = nextTo.getNext();
+			}catch(NullPointerException e){
+				break;
+			}
+		}
 	}
 }

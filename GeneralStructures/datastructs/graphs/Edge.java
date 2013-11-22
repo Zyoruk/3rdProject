@@ -1,5 +1,12 @@
 package datastructs.graphs;
 
+/**
+ * Edge is the link between two vertexes. It has a weight or "distance" between
+ * them.
+ * @author zyoruk
+ *
+ * @param <K> Generics
+ */
 public class Edge<K> {
 	
 	private int _Weight;
@@ -21,6 +28,10 @@ public class Edge<K> {
 	
 	public void setFromNode(Vertex<K> pFromNode){
 		this._ConnectFrom = pFromNode;
+	}
+	
+	public void setWeight(int pWeight){
+		this._Weight = pWeight;
 	}
 	
 	public Vertex<K> getFromNode(){

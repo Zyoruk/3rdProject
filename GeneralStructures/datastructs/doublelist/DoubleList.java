@@ -147,7 +147,8 @@ protected int length;
         return false;
     }
 
-    public String describe() {
+    @Override
+	public String describe() {
         StringBuilder result = new StringBuilder();
 
         result.append("List: ");
