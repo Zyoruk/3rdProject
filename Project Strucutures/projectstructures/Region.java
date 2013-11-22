@@ -8,9 +8,9 @@ public class Region<String> extends Vertex<String>{
 	private boolean _BountyHunter;
 	private int _IndividualID;
 	private int _Bounty;
-	private  Domain<Region<String>> myDomain;
+	private  Domain<String> myDomain;
 	
-	public Region(Domain<Region<String>> domain){
+	public Region(Domain<String> domain){
 		this.myDomain = domain;
 		this._IndividualID = domain.getOrder() + 1;
 		this._Bounty =  (int) (Math.random() * ((50)));
@@ -40,7 +40,7 @@ public class Region<String> extends Vertex<String>{
 	
 	public void setID(){
 		String DomainIP = this.myDomain.getIP();
-		this._ID = DomainIP.concat(":" + Integer.toString(this._IndividualID));
+		this._ID = (String) DomainIP.toString();
 	}
 	
 	public boolean setBountyHunter(BountyHunter pBountyHunterToSet){
