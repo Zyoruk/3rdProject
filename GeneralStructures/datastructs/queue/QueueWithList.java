@@ -2,7 +2,12 @@ package datastructs.queue;
 
 import datastructs.doublelist.DoubleList;
 import datastructs.interfaces.QueueInterface;
-
+/**
+ * Class that Joins the Data Structures  Queue and List
+ * @author Daniel 
+ *
+ * @param <K>
+ */
 public class QueueWithList<K> extends DoubleList<K> implements QueueInterface<K> {	
 	
 	@Override

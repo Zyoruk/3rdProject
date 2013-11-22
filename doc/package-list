@@ -1,13 +1,7 @@
 
-datastructs.array
 datastructs.doublelist
 datastructs.graphs
 datastructs.interfaces
 datastructs.queue
 datastructs.simplelist
-datastructs.stack
-datastructs.trees.avl
-datastructs.trees.binary
-datastructs.trees.splay
-graphs
 projectstructures

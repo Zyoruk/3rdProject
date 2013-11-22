@@ -5,12 +5,18 @@ import java.util.Iterator;
 
 import datastructs.interfaces.ListInterface;
 
+/**
+ * 
+ * @author Daniel
+ *A class that creates a Double List this is an structure that will store data
+ * @param <K>
+ */
 public class DoubleList<K> implements ListInterface<K>, Iterable<K> {
     
     //    protected double _start;
 //    protected double _end;
     protected DoubleListNode<K> head;
-protected int length;
+    protected int length;
     protected DoubleListNode<K> tail;
 
     public DoubleList() {
@@ -19,7 +25,9 @@ protected int length;
         this.tail = null;
     }
     
-    @Override
+    /**
+     * A method that adds data to the DoubleList 
+     */
     public boolean append(K pk) {
 //    	_start = System.currentTimeMillis();
         DoubleListNode<K> node = new DoubleListNode<K>(pk);
@@ -38,7 +46,9 @@ protected int length;
         return true;
     }
 
-    @Override
+    /**
+     *A method that erase all the elements on the DoubleList
+     */
     public boolean clear() {
         DoubleListNode<K> temp = null;
         while(this.head != null) {
@@ -51,8 +61,10 @@ protected int length;
         return true;
     }
 
-    //Erase last node
-	@Override
+    /**
+     * Method that Erase last node of the DoubleList
+     */
+	
 	public K cut() {
 //		_start = System.currentTimeMillis();
 		if (this.tail == null){
@@ -72,8 +84,9 @@ protected int length;
 		return this.tail.getElem();
 	}
 
-    //Erase first node
-	@Override
+    /**
+     * Method that erase the first node on the DoubleList 
+     */
 	public boolean delete() {
 //		_start = System.currentTimeMillis();
 		//Set tmp list
@@ -90,7 +103,9 @@ protected int length;
         return true;
 	}
 
-    @Override
+    /**
+     * Method that erase an specific node on the DoubleList
+     */
     public boolean delete(K pk) {
 //    	_start = System.currentTimeMillis();
         if(isEmpty()) {
@@ -147,7 +162,9 @@ protected int length;
         return false;
     }
 
-    @Override
+    /**
+     * Method that shows the information of the DoubleList 
+     */
 	public String describe() {
         StringBuilder result = new StringBuilder();
 
@@ -168,7 +185,10 @@ protected int length;
         return result.toString();
     }
 
-    @Override
+    /**
+     * Method that shows true if an element of the list that was
+     * search exists on the DoubleList  
+     */
     public boolean exists(K pk) {
 //    	_start = System.currentTimeMillis();
         for(K ck : this) {
@@ -183,7 +203,10 @@ protected int length;
         return false;
     }
     
-    @Override
+    /**
+     * Method that insert a node on a specific position on the 
+     * DoubleList 
+     */
     public boolean insert(int pos, K pk) {
 //    	_start = System.currentTimeMillis();
         DoubleListNode<K> node = new DoubleListNode<K>(pk);
@@ -229,7 +252,9 @@ protected int length;
         return true;
     }
     
-    @Override
+    /**
+     * Method that insert on the first place of the DoubleList 
+     */
     public boolean insert(K pk) {
 //    	_start = System.currentTimeMillis();
         DoubleListNode<K> node = new DoubleListNode<K>(pk);
