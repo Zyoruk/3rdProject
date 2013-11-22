@@ -27,7 +27,7 @@ public class Dijkstra <K> {
 		this.startNode = (Vertex<Character>) evaluatedNode((Character) pstartNode);
 		this.toNode = (Vertex<K>) toEndNode;
 
-		this.arrayVertexes = new char[this.graph.getOrder()][2];
+		this.arrayVertexes = new char [this.graph.getOrder()][2];
 		this.arrayDistances = new int [this.graph.getOrder()];
 		
 		this.distance = 0;
@@ -58,7 +58,6 @@ public class Dijkstra <K> {
 							for (Edge<K> h : this.graph.getEdges()){
 								if(h.getWeight() + this.distance < this.arrayDistances[i]){
 									this.arrayDistances[i] = h.getWeight() + this.distance;
-									this.arrayVertexes[i][1] = this.startNode.getElement();
 								}
 							}
 						}else{
@@ -71,17 +70,7 @@ public class Dijkstra <K> {
 		}
 	}
 	
-	public SimpleList<Integer> getDistances(){
-		SimpleList<Integer> distances = new SimpleList<Integer>();
-		for (int i = 0 ; i < this.arrayDistances.length; i ++){
-			distances.append(this.arrayDistances[i]);
-		}
-		return distances;
-	}
 
-	public char[][] getVertexesArray(){
-		return this.arrayVertexes;
-	}
 	/**
 	 * The class needs to know the exact node we are going to evaluate
 	 * @param node data the node should have

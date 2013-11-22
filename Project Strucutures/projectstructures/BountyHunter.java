@@ -13,9 +13,9 @@ public class BountyHunter {
 	private int _Bounty;
 	private QueueWithList<Region<String>> _PlacesToVisit;
 	
-	public BountyHunter (Domain<String> domain ,
+	public BountyHunter (Domain<Region<String>> domain ,
 						 Region<String> pWhereToBeCreated){
-		this._HomeDomain = domain.getIP();
+		this._HomeDomain = domain.getIP().getID();
 		this._HomeRegion = pWhereToBeCreated.getRegionID();
 		this._ForeignDomain = this._HomeDomain;
 		this._ForeignRegion = this._HomeDomain + this._HomeRegion;

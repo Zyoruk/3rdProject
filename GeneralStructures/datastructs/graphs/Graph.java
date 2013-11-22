@@ -328,7 +328,11 @@ public class Graph<K> implements DataStructure<K> {
 	 *            lists.
 	 */
 //	public void DijsktraAlgorithm(String fromNode) {
+<<<<<<< HEAD
 //		Dijkstra<K> Dijkstra = new Dijkstra(fromNode,fromNode,this);
+=======
+//		DijkstraV2<K> Dijkstra = new DijkstraV2(fromNode, this);
+>>>>>>> parent of 3a41259... We need to create a generic array example k[][] array and after that cast it to the data type we receive.
 //		Dijkstra.execute();
 //	}
 
