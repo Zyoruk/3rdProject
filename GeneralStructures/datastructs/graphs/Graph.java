@@ -327,9 +327,9 @@ public class Graph<K> implements DataStructure<K> {
 	 *            Since we need to know all the methods of it and its current
 	 *            lists.
 	 */
-	public void DijsktraAlgorithm(String fromNode) {
-		Dijkstra<K> Dijkstra = new Dijkstra(fromNode,fromNode,this);
-		Dijkstra.execute();
-	}
+//	public void DijsktraAlgorithm(String fromNode) {
+//		Dijkstra<K> Dijkstra = new Dijkstra(fromNode,fromNode,this);
+//		Dijkstra.execute();
+//	}
 
 }

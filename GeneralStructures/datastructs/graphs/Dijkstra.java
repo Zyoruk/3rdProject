@@ -15,8 +15,8 @@ public class Dijkstra <K> {
 	private Graph<K> graph;
 	private SimpleList<Vertex<K>> unprocessed;
 	private SimpleList<Vertex<K>> processed;
-	private K[][] arrayVertexes;
-	private K[] arrayDistances;
+	private char[][] arrayVertexes;
+	private int[] arrayDistances;
 	private int distance;
 	
 	public Dijkstra(K pstartNode ,K toEndNode, Graph<K> pgraph){

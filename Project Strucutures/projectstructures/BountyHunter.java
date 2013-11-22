@@ -2,23 +2,25 @@ package projectstructures;
 
 import datastructs.queue.QueueWithList;
 
+
 public class BountyHunter {
 	private String _HomeDomain;
-	private int _HomeRegion;
 	private String _ForeignDomain;
 	private String _ForeignRegion;
 	private String _TargetRegion;
+	private int _HomeRegion;
 	private int _MyID;
 	private int _Bounty;
-	private QueueWithList<Region> _PlacesToVisit;
+	private QueueWithList<Region<String>> _PlacesToVisit;
 	
-	public BountyHunter (Domain pWhoCreatesMe , Region WhereToBeCreated){
-		this._HomeDomain = pWhoCreatesMe.getIP();
-		this._HomeRegion = WhereToBeCreated.getRegionID();
+	public BountyHunter (Domain<String> domain ,
+						 Region<String> pWhereToBeCreated){
+		this._HomeDomain = domain.getIP();
+		this._HomeRegion = pWhereToBeCreated.getRegionID();
 		this._ForeignDomain = this._HomeDomain;
 		this._ForeignRegion = this._HomeDomain + this._HomeRegion;
 		this._Bounty = 000000;
-		this._MyID = pWhoCreatesMe.getBountyHunterList().length() + 1;
+		this._MyID = domain.getBountyHunterList().length() + 1;
 		this._PlacesToVisit = null;
 	}
 	
@@ -28,7 +30,7 @@ public class BountyHunter {
 		return PointsToReturn;
 	}
 	
-	public int takeBounty(Region currentRegion){
+	public int takeBounty(Region<Character> currentRegion){
 			this._Bounty = this._Bounty + currentRegion.getBounty();
 			this._TargetRegion = this._PlacesToVisit.Dequeue().getID();		
 			return this._Bounty;
@@ -45,7 +47,7 @@ public class BountyHunter {
 		
 	}
 	
-	public boolean receiveNewMission(Region newRegionToVisit){
+	public boolean receiveNewMission(Region<String> newRegionToVisit){
 		if (!(this._PlacesToVisit.exists(newRegionToVisit))){
 			this._PlacesToVisit.append(newRegionToVisit);
 			return true;
@@ -55,8 +57,9 @@ public class BountyHunter {
 		}
 	}
 	
-	public void setNewTargetRegion(Region newTargetRegion){
+	public void setNewTargetRegion(Region<String> newTargetRegion){
 		this._TargetRegion = newTargetRegion.getID();
+		
 	}
 	
 	public String getPosition(){
