@@ -14,10 +14,9 @@ import datastructs.graphs.Graph;
  * graph data structure. This will send several messages to bounty hunters and
  * create them, as well.
  */
-@SuppressWarnings("hiding")
-public class Domain<String> extends Graph<String> {
+public class Domain<K> extends Graph<K> {
 
-	private String IP;
+	private static String IP;
 	private boolean _Halt;
 	private SimpleList<BountyHunter> _MyBountyHunters;
 	private int _MyCurrentPoints;
@@ -30,7 +29,7 @@ public class Domain<String> extends Graph<String> {
 		this._Halt = false;
 		this._MyCurrentPoints= 0;
 		try {
-			IP = this.setIp();
+			Domain.IP = this.setIp();
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
@@ -52,7 +51,7 @@ public class Domain<String> extends Graph<String> {
 	 * Creates a new BountyHunter, cannot do it directly into a foreign domain.
 	 * @param pWhereToBeCreated is the region to create the bounty hunter.
 	 */	
-	public void createbountyHunter(Region<String> pWhereToBeCreated){
+	public void createbountyHunter(Region pWhereToBeCreated){
 		BountyHunter newBountyHunter = new BountyHunter(this, pWhereToBeCreated);
 		this._MyBountyHunters.append(newBountyHunter);
 	}
@@ -81,7 +80,7 @@ public class Domain<String> extends Graph<String> {
 	 * @return Domain's IP
 	 */
 	public String getIP(){
-		return IP;
+		return Domain.IP;
 	}
 
 	/**
@@ -115,7 +114,7 @@ public class Domain<String> extends Graph<String> {
 	 * Tells the bounty hunter to visit a new Arduino.
 	 * @param pBountyHunterID the ID of the Bounty hunter.	
 	 */
-	public void setNewMision(int pBountyHunterID, Region<java.lang.String> RegionToVisit){
+	public void setNewMision(int pBountyHunterID, Region RegionToVisit){
 		SimpleList<BountyHunter> temp = this._MyBountyHunters;
 		for (int i = 0; i < this._MyBountyHunters.length();i++){
 			BountyHunter tempHunter = temp.deleteHead();

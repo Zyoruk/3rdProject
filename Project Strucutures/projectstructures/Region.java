@@ -2,10 +2,10 @@ package projectstructures;
 
 import datastructs.graphs.Vertex;
 
-@SuppressWarnings("hiding")
-public class Region<String> extends Vertex<String>{
+public class Region<K> extends Vertex<K>{
 	private String _ID;
-	private boolean _BountyHunter;
+	private boolean _ifBountyHunter;
+	private BountyHunter bountyHunter;
 	private int _IndividualID;
 	private int _Bounty;
 	private  Domain<String> myDomain;
@@ -14,7 +14,7 @@ public class Region<String> extends Vertex<String>{
 		this.myDomain = domain;
 		this._IndividualID = domain.getOrder() + 1;
 		this._Bounty =  (int) (Math.random() * ((50)));
-		this._BountyHunter = false;
+		this._ifBountyHunter = false;
 		setID();
 	}
 	
@@ -35,7 +35,7 @@ public class Region<String> extends Vertex<String>{
 	}
 	
 	public boolean haveBountyHunter(){
-		return this._BountyHunter;
+		return this._ifBountyHunter;
 	}
 	
 	public void setID(){
@@ -44,11 +44,33 @@ public class Region<String> extends Vertex<String>{
 	}
 	
 	public boolean setBountyHunter(BountyHunter pBountyHunterToSet){
-		if(this._BountyHunter){
+		if(this._ifBountyHunter){
 			return false;
 		}else{
-			this._BountyHunter = true;
+			this._ifBountyHunter = true;
 			return true;
 		}
 	}
+	
+	public boolean receiveBountyHunter(BountyHunter toReceive){
+		if (this._ifBountyHunter){
+			return false;
+		}else{
+			this.bountyHunter = toReceive;
+			this._ifBountyHunter = true;
+			return true;
+		}		
+	}
+	
+	public boolean giveToOtherRegion(Region OtherRegion){
+		if (OtherRegion._ifBountyHunter){
+			return false;
+		}else{
+			OtherRegion.receiveBountyHunter(this.bountyHunter);
+			this.bountyHunter = null;
+			this._ifBountyHunter = false;
+			return true;
+		}
+	}
+	
 }

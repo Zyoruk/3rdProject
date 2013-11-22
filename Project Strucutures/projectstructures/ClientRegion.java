@@ -2,9 +2,10 @@ package projectstructures;
 
 public class ClientRegion<K> extends Region<K>{
 
-	public ClientRegion(Domain<Region<K>> domain) {
+	public ClientRegion(Domain domain) {
 		super(domain);
 		// TODO Auto-generated constructor stub
 	}
-	
-}
+
+	}
+

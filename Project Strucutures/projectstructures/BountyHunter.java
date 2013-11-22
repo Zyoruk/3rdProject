@@ -11,11 +11,11 @@ public class BountyHunter {
 	private int _HomeRegion;
 	private int _MyID;
 	private int _Bounty;
-	private QueueWithList<Region<String>> _PlacesToVisit;
+	private QueueWithList<Region> _PlacesToVisit;
 	
-	public BountyHunter (Domain<Region<String>> domain ,
-						 Region<String> pWhereToBeCreated){
-		this._HomeDomain = domain.getIP().getID();
+	public BountyHunter (Domain domain ,
+						 Region pWhereToBeCreated){
+		this._HomeDomain = domain.getIP();
 		this._HomeRegion = pWhereToBeCreated.getRegionID();
 		this._ForeignDomain = this._HomeDomain;
 		this._ForeignRegion = this._HomeDomain + this._HomeRegion;
@@ -30,21 +30,21 @@ public class BountyHunter {
 		return PointsToReturn;
 	}
 	
-	public int takeBounty(Region<Character> currentRegion){
+	public int takeBounty(Region currentRegion){
 			this._Bounty = this._Bounty + currentRegion.getBounty();
-			this._TargetRegion = this._PlacesToVisit.Dequeue().getID();		
+			this._TargetRegion = this._PlacesToVisit.Dequeue().getID();	
+			currentRegion.setBounty(0);
 			return this._Bounty;
 	}
 	
-	public String returnHome(){
+	public boolean returnHome(){
 		if (this._ForeignDomain != this._HomeDomain){
-			//exitCurrentDomain();
 			this._ForeignDomain = this._HomeDomain;
+			return true;
 		}else{
 			System.out.print("BT is in home domain.");
-		}
-		return this._ForeignDomain;
-		
+			return false;
+		}		
 	}
 	
 	public boolean receiveNewMission(Region<String> newRegionToVisit){
