@@ -3,7 +3,7 @@ package datastructs.graphs;
 import datastructs.simplelist.SimpleList;
 
 
-public class DijkstraV2 <K> {
+public class Dijkstra <K> {
 	private Vertex<Character> startNode;
 	private Vertex<K> toNode;
 	private Graph<K> graph;
@@ -13,7 +13,7 @@ public class DijkstraV2 <K> {
 	private int[] arrayDistances;
 	private int distance;
 	
-	public DijkstraV2(K pstartNode ,K toEndNode, Graph<K> pgraph){
+	public Dijkstra(K pstartNode ,K toEndNode, Graph<K> pgraph){
 		this.graph= pgraph;
 		pgraph.getVertexThatContains(pstartNode).setIfProcessed(true);
 		this.processed = pgraph.getProcessedOnes();
