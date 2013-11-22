@@ -166,21 +166,23 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 	public String describe() {
         StringBuilder result = new StringBuilder();
         try{
-        result.append("List: ");
-        for(K k : this) {
-            result.append(String.format("%s ", k.toString()));
-        }
-        result.append("\n");
+        	result.append("List: ");
+        	for(K k : this) {
+        		result.append(String.format("%s ", k.toString()));
+        	}
+        	result.append("\n");
 
-        result.append(String.format("Length: %d\n", this.length));
-        result.append(
-                String.format("Head: %s\n", this.head.getElem().toString())
-            );
-        result.append(
-                String.format("Tail: %s\n", this.tail.getElem().toString())
-            );
+        	result.append(String.format("Length: %d\n", this.length));
+        	result.append(
+        			String.format("Head: %s\n", this.head.getElem().toString())
+        			);
+        	result.append(
+        			String.format("Tail: %s\n", this.tail.getElem().toString())
+        			);
         }catch (NullPointerException e){
-        	System.out.println("Nothing to describe");
+        	result = new StringBuilder();
+        	result.append("nothing to describe");
+        	return result.toString();
         }
 
         return result.toString();

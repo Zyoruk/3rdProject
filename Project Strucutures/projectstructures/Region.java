@@ -16,6 +16,7 @@ public class Region<K> extends Vertex<K>{
 	private  Domain<String> myDomain;
 	
 	public Region(Domain<String> domain){
+		super();
 		this.myDomain = domain;
 		this._IndividualID = domain.getOrder() + 1;
 		this._Bounty =  (int) (Math.random() * ((50)));
@@ -63,7 +64,7 @@ public class Region<K> extends Vertex<K>{
 	 */
 	public void setID(){
 		String DomainIP = this.myDomain.getIP();
-		this._ID = (String) DomainIP.toString();
+		this._ID =  DomainIP.toString().concat(":" +  this._IndividualID);
 	}
 	/**
 	 * Method that sets the Region's BountyHunter 

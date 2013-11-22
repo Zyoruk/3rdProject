@@ -1,4 +1,4 @@
-package edu.itcr.logictec.save;
+package xml;
 
 /*
  * Librerias de entrada/salida, parseadors de xml, estructuradores.
@@ -21,7 +21,8 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import edu.itcr.logictec.constants.Constants;
+import setup.Constants;
+
 
 public class Toxml {
 	int exits;

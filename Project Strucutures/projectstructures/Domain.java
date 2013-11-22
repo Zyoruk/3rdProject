@@ -26,8 +26,10 @@ public class Domain<K> extends Graph<K> {
 	 * using the current machine IP.
 	 */
 	public Domain(){
+		super();
 		this._Halt = false;
 		this._MyCurrentPoints= 0;
+		this._MyBountyHunters= new SimpleList<BountyHunter>();
 		try {
 			Domain.IP = this.setIp();
 		} catch (SocketException e) {
