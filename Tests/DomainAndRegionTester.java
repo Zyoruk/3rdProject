@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import projectstructures.BountyHunter;
 import projectstructures.Domain;
 import projectstructures.Region;
 
@@ -45,6 +46,14 @@ public class DomainAndRegionTester {
 	
 		System.out.println("My domain IP: " + myDomain.getIP());
 		System.out.println(myDomain.describe());
+		
+		BountyHunter myBT = new BountyHunter(myDomain , region1);
+		System.out.println(region1.haveBountyHunter());
+		
+		region1.giveToOtherRegion(region2);
+		System.out.println(region1.haveBountyHunter());
+		
+		
 
 	}	
 }

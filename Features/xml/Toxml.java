@@ -21,7 +21,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import edu.itcr.logictec.constants.Constants;
+import setup.Constants;
 
 public class Toxml {
 	int exits;

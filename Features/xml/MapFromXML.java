@@ -1,7 +1,5 @@
 package xml;
 
-import edu.itcr.startec.datastructs.doublelist.DoubleList;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,6 +16,8 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import datastructs.doublelist.DoubleList;
 
 public class MapFromXML<K> extends DoubleList<K>{
 	DoubleList<	DoubleList<String>> map;
