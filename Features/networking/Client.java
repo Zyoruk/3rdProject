@@ -2,7 +2,8 @@ package networking;
 
 import java.net.*;
 import java.io.*;
-import edu.itcr.bountyhunters.Constants;
+
+import setup.Constants;
 
 public class Client {
 	
@@ -24,9 +25,9 @@ public class Client {
 			//Establish ongoing stream
 			output = new PrintStream(client.getOutputStream());
 			//send request to server
-			output.println(hunter);
+			output.println("hunter");
 			
-			String responce = input.readLine();
+			String response = input.readLine();
 			
 			
 			input.close();

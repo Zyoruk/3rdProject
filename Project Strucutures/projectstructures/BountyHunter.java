@@ -22,6 +22,7 @@ public class BountyHunter {
 		this._Bounty = 000000;
 		this._MyID = domain.getBountyHunterList().length() + 1;
 		this._PlacesToVisit = null;
+		pWhereToBeCreated.setBountyHunter(this);
 	}
 	
 	public int returnPoints(){
