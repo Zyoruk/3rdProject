@@ -1,7 +1,13 @@
 package datastructs.graphs;
 
 import datastructs.simplelist.SimpleList;
-
+/**
+ * A vertex is part of a graph, and it can contains several kind of data.
+ * Also, you can connect the vertex to another one.
+ * @author zyoruk
+ *
+ * @param <K>
+ */
 public class Vertex<K> {
 	private K _element;
 	private SimpleList<Edge<K>> _vertexPointers;
@@ -34,26 +40,50 @@ public class Vertex<K> {
 	}
 
 	// Getters and setters
+	/**
+	 * Returns the list of edges the vertex has
+	 * @return Simpl List of edges
+	 */
 	public SimpleList<Edge<K>> getConnections() {
 		return this._vertexPointers;
 	}
 
+	/**
+	 * returns the element of the vertex
+	 * @return element of the vertex
+	 */
 	public K getElement() {
 		return this._element;
 	}
 
+	/**
+	 * Sets this vertex element
+	 * @param pk element to set
+	 */
 	public void setElement(K pk) {
 		this._element = pk;
 	}
 
+	/**
+	 * Returns a boolean
+	 * @return true or false
+	 */
 	public boolean getIfProcessed() {
 		return this._Processed;
 	}
 
+	/**
+	 * Sets the vertex as processed
+	 * @param pProcessed true or false
+	 */
 	public void setIfProcessed(boolean pProcessed) {
 		this._Processed = pProcessed;
 	}
 
+	/**
+	 * Searches all the vertexes that are connected to this one
+	 * @return SimpleList that contains all the adjacent vertexes
+	 */
 	public SimpleList<Vertex<K>> getAdjacentVertexes() {
 		for (int i = 0; i < this._vertexPointers.length(); i++) {
 			try {

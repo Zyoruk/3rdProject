@@ -235,6 +235,11 @@ public class Graph<K> implements DataStructure<K> {
 		return null;
 	}
 	
+	/**
+	 * Removes the link that contains both specified vertexes
+	 * @param pFromNode vertex data
+	 * @param pToNode vertex data
+	 */
 	public void removeLink(K pFromNode , K pToNode){
 		try{
 			SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
@@ -253,6 +258,11 @@ public class Graph<K> implements DataStructure<K> {
 		}
 	}
 	
+	/**
+	 * when we delete a vertex, then we need to search for any edge related to
+	 * it and clear it.
+	 * @param vertex The one we removed
+	 */
 	private void clearReferences(Vertex<K> vertex){
 		SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
 		for (int i = 0 ; i< this._EdgeList.length();i++){
@@ -264,6 +274,10 @@ public class Graph<K> implements DataStructure<K> {
 		}
 	}
 	
+	/**
+	 * returns the list of nodes that have not been processed
+	 * @return SimpleList the contains all the unprocessed vertexes
+	 */
 	public SimpleList<Vertex<K>> getUnprocessedOnes(){
 		SimpleList<Vertex<K>> unprocessed = new SimpleList<Vertex<K>>();
 		for (Vertex<K> k : this._NodeList){
@@ -276,6 +290,10 @@ public class Graph<K> implements DataStructure<K> {
 		return unprocessed;
 	}
 	
+	/**
+	 * returns the list of nodes that have been processed
+	 * @return SimpleList the contains all the processed vertexes
+	 */
 	public SimpleList<Vertex<K>> getProcessedOnes(){
 		SimpleList<Vertex<K>> Processed = new SimpleList<Vertex<K>>();
 		for (Vertex<K> k : this._NodeList){
@@ -288,6 +306,10 @@ public class Graph<K> implements DataStructure<K> {
 		return Processed;
 	}
 	
+	/**
+	 * Set the vertex as processed
+	 * @param data that the node should have
+	 */
 	public void setAsProcessed(K data){
 		Vertex<K> ToSet = this.getVertexThatContains(data);
 		ToSet.setIfProcessed(true);
