@@ -1,4 +1,4 @@
-package edu.itcr.logictec.save;
+package xml;
 
 /*
  * Librerias de entrada/salida, parseadors de xml, estructuradores.
