@@ -162,7 +162,7 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         			);
         }catch (NullPointerException e){
         	result = new StringBuilder();
-        	result.append("noting to describe");
+        	result.append("nothing to describe");
         	return result.toString();
         }
 
