@@ -5,7 +5,7 @@ import java.io.*;
 
 import setup.Constants;
 
-public class Client {
+public class Client<K> {
 	
 	Socket client;		//Creates communication tunnel
 	int port = 61000;	//Selects a port
@@ -13,6 +13,9 @@ public class Client {
 	BufferedReader input;	//Stream used as input
 	PrintStream output;	//Stream used as output
 
+	/*
+	 * Sends request, data over network
+	 */
 	public void start(String hunter){
 		try{
 			//Connect to server ip connection on a specific port
@@ -27,6 +30,7 @@ public class Client {
 			output = new PrintStream(client.getOutputStream());
 			
 			System.out.println("Sending Data...");
+			
 			//send request to server
 			output.println(hunter);
 			
@@ -40,8 +44,7 @@ public class Client {
 			client.close();	
 			System.out.println("Disconnecting...");
 			
-		} catch(Exception e){}
-		
-	}
-	
+		} catch(Exception e){}	
+	}	
 }
+
