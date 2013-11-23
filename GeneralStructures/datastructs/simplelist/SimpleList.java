@@ -2,7 +2,12 @@ package datastructs.simplelist;
 import java.util.Iterator;
 
 import datastructs.interfaces.ListInterface;
-
+/**
+ * Class than creates a simple list 
+ * @author Daniel
+ *
+ * @param <K>
+ */
 
 public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
     
@@ -18,7 +23,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         this.tail = null;
     }
     
-    @Override
+    /**
+     * Method that insert a node on the list 
+     */
     public boolean append(K pk) {
         SimpleListNode<K> node = new SimpleListNode<K>(pk);
 //        _start = System.currentTimeMillis();
@@ -35,7 +42,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         return true;
     }
 
-    @Override
+    /**
+     * Method that erase all on the simple list 
+     */
     public boolean clear() {
         SimpleListNode<K> temp = null;
         while(this.head != null) {
@@ -48,7 +57,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         return true;
     }
 
-    @Override
+    /**
+     * Method that erase the last node on the list 
+     */
 	public K cut() {
 		SimpleListNode<K> current = this.head;
 		while(current.getNext() != this.tail){
@@ -59,7 +70,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 		return current.getElem();
 	}
 
-    @Override
+    /**
+     *Method that is for erase the first node on the list 
+     */
     public boolean delete(){
         //Set tmp list
         SimpleListNode<K> node = this.head.getNext();
@@ -74,7 +87,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 
     }
 
-    @Override
+    /**
+     * Method that erase a specific node on the list 
+     */
     public boolean delete(K pk) {
 //    	_start = System.currentTimeMillis();
         if(isEmpty()) {
@@ -121,7 +136,10 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 //        System.out.println("Delete lasted:  " + getExecuteTime());
         return true;
     }
-
+    /**
+     * Method that erase the head of the list 
+     * @return
+     */
     public K deleteHead() {
     	if (this.isEmpty()){
     		return null;
@@ -142,8 +160,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
     		return toreturn.getElem();
     	}
     }
-    
-    @Override
+    /**
+     * Method that describe the simple list 
+     */
 	public String describe() {
         StringBuilder result = new StringBuilder();
         try{
@@ -169,7 +188,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         return result.toString();
     }
 
-    @Override
+    /**
+     * Method that shows if a node exist on the list 
+     */
     public boolean exists(K pk) {
         for(K ck : this) {
             if(ck.equals(pk)) {
@@ -180,7 +201,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         return false;
     }
 
-    @Override
+    /**
+     * Method that insert a node on a specific position 
+     */
     public boolean insert(int pos, K pk) {
 //    	_start = System.currentTimeMillis();
 
@@ -222,7 +245,9 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         return true;
     }
 
-    @Override
+    /**
+     * Method that insert a node on the list 
+     */
     public boolean insert(K pk) {
 //    	_start = System.currentTimeMillis();
         SimpleListNode<K> node = new SimpleListNode<K>(pk);
@@ -240,25 +265,41 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
     }
     
 
-    @Override
+    /**
+     * Method that shows if the list are empty 
+     */
     public boolean isEmpty() {
         return this.head == null;
     }
 
-    @Override
+    /**
+     * Method that made iterable the simple list 
+     */
     public Iterator<K> iterator() {
         return new SimpleListIterator<K>(this);
     }
-	@Override
+	/**
+	 * 
+	 *Method that return the simple list length 
+	 *@return
+	 */
     public int length() {
         return this.length;
     }
-	
+	/**
+	 * Method that return the simple list head 
+	 * @return
+	 */
 	public SimpleListNode<K> getHead(){
 		return this.head;
 	}
 }
-
+/**
+ * Class implements the iterator 
+ * @author Daniel
+ *
+ * @param <K>
+ */
 class SimpleListIterator<K> implements Iterator<K> {
 
     SimpleListNode<K> current;

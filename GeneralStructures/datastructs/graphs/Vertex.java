@@ -2,6 +2,12 @@ package datastructs.graphs;
 
 import datastructs.simplelist.SimpleList;
 
+/**
+ * 
+ * @author zyoruk
+ *Class that made the connection between two nodes 
+ * @param <K>
+ */
 public class Vertex<K> {
 	private K _element;
 	private SimpleList<Edge<K>> _vertexPointers;

@@ -1,6 +1,11 @@
 package datastructs.doublelist;
 
-
+/**
+ * 
+ * @author Daniel
+ *Class that creates a DoubleList of Nodes 
+ * @param <K>
+ */
 
 public class DoubleListNode<K> {
     

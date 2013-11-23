@@ -1,6 +1,11 @@
 package datastructs.simplelist;
 
-
+/**
+ * Class that made a simple list of nodes 
+ * @author Daniel
+ *
+ * @param <K>
+ */
 
 public class SimpleListNode<K> {
     
