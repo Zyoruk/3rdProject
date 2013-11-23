@@ -39,27 +39,47 @@ public class Vertex<K> {
 		}
 	}
 
-	// Getters and setters
+	/**
+	 * Method that return the connections on the vertex 
+	 * @return SimpleList<Edge<K>>
+	 */
 	public SimpleList<Edge<K>> getConnections() {
 		return this._vertexPointers;
 	}
-
+	/**
+	 * Method that return the element of the vertex 
+	 * @return K
+	 */
 	public K getElement() {
 		return this._element;
 	}
-
+	/**
+	 * Method that set the element of the vertex 
+	 * @param pk
+	 */
 	public void setElement(K pk) {
 		this._element = pk;
 	}
-
+	/**
+	 * Method that return if an vertex has being
+	 * processed 
+	 * @return boolean 
+	 */
 	public boolean getIfProcessed() {
 		return this._Processed;
 	}
-
+	/**
+	 * Method that set the vertex as a
+	 * processed 
+	 * @param pProcessed
+	 */
 	public void setIfProcessed(boolean pProcessed) {
 		this._Processed = pProcessed;
 	}
-
+	/**
+	 * Method that return the Adjacent Vertexes 
+	 * @return SimpleList<Vertex<K>>
+	 */
 	public SimpleList<Vertex<K>> getAdjacentVertexes() {
 		for (int i = 0; i < this._vertexPointers.length(); i++) {
 			try {

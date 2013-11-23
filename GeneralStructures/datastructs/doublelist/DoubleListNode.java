@@ -25,30 +25,55 @@ public class DoubleListNode<K> {
         this.next = next;
         this.previous = null;
     }
-    
+    /**
+     * Method that returns the element of
+     * the doublelistnode
+     * @return K
+     */
     public K getElem() {
         return this.elem;
     }
-    
+    /**
+     * Method that return the DoubleListNode next 
+     * position 
+     * @return DoubleListNode<K>
+     */
     public DoubleListNode<K> getNext() {
         return this.next;
     }
-
+    /**
+      * Method that return the DoubleListNode previous 
+     * position 
+     * @return DoubleListNode<K>
+     */
     public DoubleListNode<K> getPrevious() {
         return this.previous;
     }
-    
+    /**
+     * Method that return the doublelistnode priority
+     * @return int
+     */
     public int getPriority() {
         return this.priority;
     }
-    
+    /**
+     * Method that set the doublelistnode next position
+     * @param next
+     */
     public void setNext(DoubleListNode<K> next) {
         this.next = next;
     }
+    /**
+     * Method that set the doublelistnode previous position
+     * @param previous
+     */
     public void setPrevious(DoubleListNode<K> previous) {
         this.previous = previous;
     }
-
+    /**
+     * Method that set the doublelistnode priority 
+     * @param priori
+     */
     public void setPriority(int priori) {
         this.priority = priori;
     }

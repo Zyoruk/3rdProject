@@ -310,7 +310,11 @@ class SimpleListIterator<K> implements Iterator<K> {
         this.current = null;
     }
     
-    @Override
+    /**
+     * Method that return if the SimpleListIterator
+     * has a next element
+     * @return boolean
+     */
     public boolean hasNext() {
         
         if(this.current == null) {
@@ -325,7 +329,11 @@ class SimpleListIterator<K> implements Iterator<K> {
         return this.current != null;
     }
 
-    @Override
+    /**
+     * method that return the next element 
+     * of the SimpleListIterator
+     * @return K
+     */
     public K next() {
         if(this.current == null) {
             return null;
@@ -333,7 +341,9 @@ class SimpleListIterator<K> implements Iterator<K> {
         return this.current.getElem();
     }
 
-    @Override
+    /**
+     * Method that remove a element of this SimpleListIterator
+     */
     public void remove() {
         throw new UnsupportedOperationException();
     }

@@ -20,15 +20,24 @@ public class SimpleListNode<K> {
         this.elem = elem;
         this.next = next;
     }
-    
+    /**
+     * Method that return the list element 
+     * @return K
+     */
     public K getElem() {
         return this.elem;
     }
-
+    /**
+     * Method that the next position of the list 
+     * @return SimpleListNode<K>
+     */
     public SimpleListNode<K> getNext() {
         return this.next;
     }
-    
+    /**
+     * Method that set the next element 
+     * @param next
+     */
     public void setNext(SimpleListNode<K> next) {
         this.next = next;
     }
