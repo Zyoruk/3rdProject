@@ -16,8 +16,8 @@ public class BountyHunter {
 	private int _MyID;
 	private int _Bounty;
 	
-	public BountyHunter (Domain domain ,
-						 Region pWhereToBeCreated){
+	public BountyHunter (Domain domain , Region pWhereToBeCreated){
+		
 		this._HomeDomain = domain.getIP();
 		this._HomeRegion = pWhereToBeCreated.getRegionID();
 		this._ForeignDomain = this._HomeDomain;
@@ -25,7 +25,16 @@ public class BountyHunter {
 		this._Bounty = 000000;
 		this._MyID = 007;
 		pWhereToBeCreated.setBountyHunter(this);
+		
 	}
+	public BountyHunter(String pip, String pregion) {
+		
+		this._HomeDomain = pip;
+		this._ForeignDomain = this._HomeDomain;
+		this._ForeignRegion = this._HomeDomain + this._HomeRegion;
+		this._TargetRegion = pregion;
+	}
+	
 	/**
 	 * Method that returns all the points that 
 	 * the BountyHunter have catch through all the 

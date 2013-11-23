@@ -3,11 +3,12 @@ package projectstructures;
 import networking.Client;
 
 public class ClientRegion<K> extends Region<K>{
-	Client<?> client;
+	
+	Client<?> client;	
+	
 	public ClientRegion(Domain domain) {
 		super(domain);
 		client = new Client<Object>();
-		
 	}
 
 	public void SendHunter(){
