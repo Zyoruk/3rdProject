@@ -4,90 +4,93 @@ import datastructs.simplelist.SimpleList;
 
 
 public class Dijkstra <K> {
-	private Vertex<Character> startNode;
+	private Vertex<K> startNode;
 	private Vertex<K> toNode;
 	private Graph<K> graph;
-	private SimpleList<Vertex<K>> unprocessed;
-	private SimpleList<Vertex<K>> processed;
-	private char[][] arrayVertexes;
+//	private SimpleList<Vertex<K>> unprocessed;
+//	private SimpleList<Vertex<K>> processed;
+//	private String[][] arrayVertexes;
+	private SimpleList<Vertex<K>> dadVertexes;
 	private int[] arrayDistances;
 	private int distance;
+	private int index;
 	
-	public Dijkstra(K pstartNode ,K toEndNode, Graph<K> pgraph){
-		this.graph= pgraph;
-		pgraph.getVertexThatContains(pstartNode).setIfProcessed(true);
-		this.processed = pgraph.getProcessedOnes();
-		this.unprocessed = pgraph.getUnprocessedOnes();
-		this.startNode = (Vertex<Character>) evaluatedNode((Character) pstartNode);
-		this.toNode = (Vertex<K>) toEndNode;
-
-		this.arrayVertexes = new char [this.graph.getOrder()][2];
-		this.arrayDistances = new int [this.graph.getOrder()];
+	public Dijkstra(Vertex<K> pstartNode ,Vertex<K> toEndNode, Graph<K> pgraph){
+		this.index = 0;
+		this.graph = pgraph;
 		
+		//Set start node visited
+		pgraph.getVertex(pstartNode).setIfProcessed(true);
+		
+		//Sets starting and ending nodes
+		this.startNode = evaluatedNode(pstartNode);
+		this.toNode = pgraph.getVertex(toEndNode);
+
+		// Dijkstra lists
+		this.dadVertexes = new SimpleList<Vertex<K>>();
+		for (int i = 0 ; i < this.graph.getOrder();i++){
+			dadVertexes.append(new Vertex<K>());
+		}
+		this.arrayDistances = new int [this.graph.getOrder()];
+
 		this.distance = 0;
 		
+		//Sets all the distances to infinity
 		for (int i = 0 ; i < this.arrayDistances.length;i++){
 			this.arrayDistances[i] = Integer.MAX_VALUE;
-		}
-		for (Vertex<K> k : this.graph.getVertexes()){
-			int i = 0;
-			this.arrayVertexes[i][1] = (Character) k.getElement();
-			i++;
-		}
-		
+		}		
 	}
 	
 	public void execute(){
-		while(this.unprocessed.length() !=0){
-			for (int i = 0 ; i < this.arrayVertexes.length;i++){
-				if (this.startNode.getElement().equals(this.arrayVertexes[i][0])){
-					this.arrayDistances[i] = 0;
+		
+		//Checks if there are no more visited vertexes
+		while(this.graph.getUnVisitedOnes().length() != 0){
+			
+			//Iterates over graph vertexes
+			for (Vertex<K> k : this.graph.getVertexes()){				
+				
+				//If current and start nodes are not the same
+				if (!this.startNode.getElement().equals(k.getElement())){
+					
+					k.getElement() == list de adyacencia
+							dadVertexes.insert(i, this.startNode);
+					
 				}else{
-					for(Vertex<Character> k : this.startNode.getAdjacentVertexes()){
-						if (k.equals(this.arrayVertexes[i][0])){
-							for (Edge<K> h : this.graph.getEdges()){
-								if(h.getWeight() + this.distance < this.arrayDistances[i]){
-									this.arrayDistances[i] = h.getWeight() + this.distance;
-								}
-							}
-						}else{
-							break;
-						}
-					}
+					this.arrayDistances[i] = 0; //assign lenght 0
 				}
 			}
-			this.startNode = getLighter();
+			this.startNode = getNextLighterNode();
+			this.startNode.setIfProcessed(true);
 		}
 	}
-	
 
 	
-	private Vertex<K> evaluatedNode(char node){
+	private Vertex<K> evaluatedNode(Vertex<K> node){
 		for(Vertex<K> k : this.graph.getVertexes()){
-			if(k.equals(node) && this.unprocessed.exists(k)){
+			if(k.getElement()== node.getElement()  && !k.getIfProcessed()){
 				return k;
 			}
 		}
 		return null;
 	}
 	
-	private Vertex<Character> getLighter(){
+	private Vertex<K> getNextLighterNode(){
 		int lighter = Integer.MAX_VALUE;
-		Vertex<Character> vertex; 
-		for (int i = 0 ; i < this.arrayDistances.length ; i++){
-			for (Vertex<K> k : this.graph.getProcessedOnes()){
-				if (k.equals(this.arrayVertexes[i][0])){
-					return null;
-				}else{
-					if(this.arrayDistances[i] < lighter){
-						lighter = this.arrayDistances[i];
-						vertex = (Vertex<Character>) k;
-						return vertex;
+		Vertex<K> vertex = new Vertex<K>();; 
+		for (int i = 0 ; i < this.arrayDistances.length - 1 ; i++){
+			for(Vertex<K> V : this.graph.getVertexes()){
+				for (Vertex<K> k : this.graph.getUnVisitedOnes()){
+					if (k.getElement().equals(V.getElement())){
+						if(this.arrayDistances[i] < lighter){
+							lighter = this.arrayDistances[i];
+							vertex = k;
+						}
+
 					}
 				}
 			}
 		}
-		return null;
+		return vertex;
 	}
 	
 }

@@ -13,10 +13,11 @@ public class Client {
 	BufferedReader input;	//Stream used as input
 	PrintStream output;	//Stream used as output
 
-	public void start(){
+	public void start(String hunter){
 		try{
 			//Connect to server ip connection on a specific port
 			client = new Socket(ip, port);
+			System.out.println("Connecting...");
 
 			//Establish object used to store answer from server
 			input = new BufferedReader
@@ -24,17 +25,23 @@ public class Client {
 			
 			//Establish ongoing stream
 			output = new PrintStream(client.getOutputStream());
+			
+			System.out.println("Sending Data...");
 			//send request to server
-			output.println("hunter");
+			output.println(hunter);
 			
 			String response = input.readLine();
+			
+			System.out.println(response);
 			
 			
 			input.close();
 			output.close();
-			client.close();			
+			client.close();	
+			System.out.println("Disconnecting...");
 			
 		} catch(Exception e){}
+		
 	}
 	
 }

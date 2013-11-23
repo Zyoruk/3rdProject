@@ -34,6 +34,8 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 //        System.out.println("Append lasted:  " + getExecuteTime());
         return true;
     }
+    
+    
 
     @Override
     public boolean clear() {

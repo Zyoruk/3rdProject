@@ -41,6 +41,8 @@ public class GraphTester<K> {
 		System.out.println(ourGraph.getSize());
 		
 		System.out.println(ourGraph.describe());
+		
+		ourGraph.Dijsktra("E", "F");
 
 		
 	}

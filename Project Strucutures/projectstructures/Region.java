@@ -74,4 +74,12 @@ public class Region<K> extends Vertex<K>{
 		}
 	}
 	
+	public BountyHunter getHunter(){
+		return this.bountyHunter;
+	}
+	
+	public void KillBountyHunter(){
+		this.bountyHunter = null;
+		this._ifBountyHunter = false;
+	}
 }

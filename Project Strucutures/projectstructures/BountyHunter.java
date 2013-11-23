@@ -1,6 +1,4 @@
-package projectstructures;
-
-import datastructs.queue.QueueWithList;
+package projectstructures;		
 
 
 public class BountyHunter {
@@ -11,7 +9,6 @@ public class BountyHunter {
 	private int _HomeRegion;
 	private int _MyID;
 	private int _Bounty;
-	private QueueWithList<Region> _PlacesToVisit;
 	
 	public BountyHunter (Domain domain ,
 						 Region pWhereToBeCreated){
@@ -20,8 +17,7 @@ public class BountyHunter {
 		this._ForeignDomain = this._HomeDomain;
 		this._ForeignRegion = this._HomeDomain + this._HomeRegion;
 		this._Bounty = 000000;
-		this._MyID = domain.getBountyHunterList().length() + 1;
-		this._PlacesToVisit = null;
+		this._MyID = 007;
 		pWhereToBeCreated.setBountyHunter(this);
 	}
 	
@@ -32,8 +28,7 @@ public class BountyHunter {
 	}
 	
 	public int takeBounty(Region currentRegion){
-			this._Bounty = this._Bounty + currentRegion.getBounty();
-			this._TargetRegion = this._PlacesToVisit.Dequeue().getID();	
+			this._Bounty = this._Bounty + currentRegion.getBounty();	
 			currentRegion.setBounty(0);
 			return this._Bounty;
 	}
@@ -48,26 +43,74 @@ public class BountyHunter {
 		}		
 	}
 	
-	public boolean receiveNewMission(Region<String> newRegionToVisit){
-		if (!(this._PlacesToVisit.exists(newRegionToVisit))){
-			this._PlacesToVisit.append(newRegionToVisit);
+	public boolean NewMissionAvailable(Region<String> newRegionToVisit){
+		if (this._TargetRegion == this._ForeignRegion){
+			this._TargetRegion = newRegionToVisit.getID();
 			return true;
 		}else{
-			System.out.println("Region already in the list");
+			System.out.println("Can't take a new mission");
 			return false;
 		}
 	}
 	
-	public void setNewTargetRegion(Region<String> newTargetRegion){
-		this._TargetRegion = newTargetRegion.getID();
-		
-	}
-	
-	public String getPosition(){
+	public String getForeignRegion(){
 		return this._ForeignRegion;
 	}
 	
 	public int getID(){
 		return this._MyID;
+	}
+	
+	public String getHomeDomain(){
+		return this._HomeDomain;
+	}
+	
+	public int getHomeRegion(){
+		return this._HomeRegion;
+	}
+	
+	public String getForeignDomain(){
+		return this._ForeignDomain;
+	}
+	
+	public int getBounty(){
+		return this._Bounty;
+	}
+	
+	public int getMyID(){
+		return this._MyID;
+	}
+	
+	public String getTargetRegion(){
+		return this._TargetRegion;
+	}
+	
+	
+	public void setHomeDomain(String pHomeDomain){
+		this._HomeDomain = pHomeDomain;
+	}
+	
+	public void setTargetRegion(String newTargetRegion){
+		this._TargetRegion = newTargetRegion;		
+	}
+	
+	public void setForeignDomain(String newForeignDomain){
+		this._ForeignDomain = newForeignDomain;
+	}
+	
+	public void setForeignRegion(String newForeignRegion){
+		this._ForeignRegion = newForeignRegion;
+	}
+	
+	public void setHomeRegion(int newHomeRegion){
+		this._HomeRegion = newHomeRegion;
+	}
+	
+	public void setID(int pID){
+		this._MyID = pID;
+	}
+	
+	public void setBounty(int pBounty){
+		this._Bounty = pBounty;
 	}
 }

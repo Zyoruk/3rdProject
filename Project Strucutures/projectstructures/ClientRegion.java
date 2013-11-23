@@ -7,8 +7,16 @@ public class ClientRegion<K> extends Region<K>{
 	public ClientRegion(Domain domain) {
 		super(domain);
 		client = new Client();
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	public void SendHunter(){
+		client.start(this.getHunter().getHomeDomain());
+		client.start(this.getHunter().getTargetRegion());
+		client.start(Integer.toString(this.getHunter().getHomeRegion()));
+		client.start(Integer.toString(this.getHunter().getID()));	
+		client.start(Integer.toString(this.getHunter().getBounty()));
+		this.KillBountyHunter();
 	}
+}
 

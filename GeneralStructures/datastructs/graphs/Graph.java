@@ -73,7 +73,7 @@ public class Graph<K> implements DataStructure<K> {
 				this._EdgeList.append(LinkToAdd);
 				fromVertex.connectTo(toVertex, pWeight);
 
-			} else {
+			}else {
 
 				for (int i = 0; i < this._EdgeList.length(); i++) {
 					try {
@@ -106,7 +106,7 @@ public class Graph<K> implements DataStructure<K> {
 					}
 				}
 			}
-		}else{
+		}else {
 			System.out.println("The vertexes specified don't exist");
 		}
 	}
@@ -264,13 +264,11 @@ public class Graph<K> implements DataStructure<K> {
 		}
 	}
 	
-	public SimpleList<Vertex<K>> getUnprocessedOnes(){
+	public SimpleList<Vertex<K>> getUnVisitedOnes(){
 		SimpleList<Vertex<K>> unprocessed = new SimpleList<Vertex<K>>();
 		for (Vertex<K> k : this._NodeList){
 			if(!k.getIfProcessed()){
 				unprocessed.append(k);
-			}else{
-				
 			}
 		}
 		return unprocessed;
@@ -281,8 +279,6 @@ public class Graph<K> implements DataStructure<K> {
 		for (Vertex<K> k : this._NodeList){
 			if(k.getIfProcessed()){
 				Processed.append(k);
-			}else{
-				
 			}
 		}
 		return Processed;
@@ -293,6 +289,15 @@ public class Graph<K> implements DataStructure<K> {
 		ToSet.setIfProcessed(true);
 	}
 
+	public Vertex<K> getVertex(Vertex<K> vertex){
+		for(Vertex<K> k : this._NodeList){
+			if (k.getElement() == vertex.getElement()){
+				return k;
+			}
+		}
+		return null;
+	}
+		
 	/**
 	 * This method calls the already implemented Dijsktra Algorithm, because we
 	 * want to know the shortest path from one node to another.
@@ -305,12 +310,10 @@ public class Graph<K> implements DataStructure<K> {
 	 *            Since we need to know all the methods of it and its current
 	 *            lists.
 	 */
-//	public void DijsktraAlgorithm(String fromNode) {
+	public void Dijsktra(K fromNode, K toNode) {
 
-//		Dijkstra<K> Dijkstra = new Dijkstra(fromNode,fromNode,this);
-//		DijkstraV2<K> Dijkstra = new DijkstraV2(fromNode, this);
-//		DijkstraV2<K> Dijkstra = new DijkstraV2(fromNode, this);
-//		Dijkstra.execute();
-//	}
+		Dijkstra<K> Dijkstra = new Dijkstra(this.getVertexThatContains(fromNode),this.getVertexThatContains(toNode),this);
+		Dijkstra.execute();
+	}
 
 }

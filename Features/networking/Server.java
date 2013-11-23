@@ -11,7 +11,7 @@ public class Server {
 	DataOutputStream output;	//Stream to use as output
 	BufferedReader input;	//Stream used as input
 
-	public void start(){
+	public String start(){
 		try{
 			server = new ServerSocket(port);	//Inits server on a specific port
 			sockets = new Socket();		
@@ -25,10 +25,12 @@ public class Server {
 			
 			//Answer from the server
 			output = new DataOutputStream(sockets.getOutputStream());
-			output.writeUTF("");
+			output.writeUTF("Data Received ...");
 			sockets.close();
+			return request;
 			
-		} catch(Exception e){}
+		} catch(Exception e){return null;}
+		
 	}
 	
 }

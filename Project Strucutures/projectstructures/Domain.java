@@ -18,7 +18,7 @@ public class Domain<K> extends Graph<K> {
 
 	private static String IP;
 	private boolean _Halt;
-	private SimpleList<BountyHunter> _MyBountyHunters;
+	private BountyHunter _MyBountyHunter;
 	private int _MyCurrentPoints;
 
 	/**
@@ -29,7 +29,6 @@ public class Domain<K> extends Graph<K> {
 		super();
 		this._Halt = false;
 		this._MyCurrentPoints= 0;
-		this._MyBountyHunters= new SimpleList<BountyHunter>();
 		try {
 			Domain.IP = this.setIp();
 		} catch (SocketException e) {
@@ -43,10 +42,7 @@ public class Domain<K> extends Graph<K> {
 	 * home domain.
 	 */
 	public void askForBountyPoints(){
-		SimpleList<BountyHunter> tempList = this._MyBountyHunters;
-		for (int i = 0; i < this._MyBountyHunters.length();i++){
-			tempList.deleteHead().returnPoints();
-		}
+		this._MyCurrentPoints = this._MyBountyHunter.returnPoints();
 	}
 
 	/**
@@ -54,8 +50,7 @@ public class Domain<K> extends Graph<K> {
 	 * @param pWhereToBeCreated is the region to create the bounty hunter.
 	 */	
 	public void createbountyHunter(Region pWhereToBeCreated){
-		BountyHunter newBountyHunter = new BountyHunter(this, pWhereToBeCreated);
-		this._MyBountyHunters.append(newBountyHunter);
+		this._MyBountyHunter = new BountyHunter(this , pWhereToBeCreated);
 	}
 
 	/**
@@ -68,13 +63,11 @@ public class Domain<K> extends Graph<K> {
 	public void endBountyRecollection(boolean pHaltMessage){}
 
 	/**
-	 * The programm will need somehow to know the Bounty Hunter list for some 
-	 * methods. So, we don't want to make the local fields public , we just 
-	 * implement a getter when needed.
-	 * @return List of bounty hunters
+	 * We will need to do stuff with the bounty hunter
+	 * @return BountyHunter
 	 */
-	public SimpleList<BountyHunter> getBountyHunterList(){
-		return this._MyBountyHunters;
+	public BountyHunter getBountyHunter(){
+		return this._MyBountyHunter;
 	}
 
 	/**
@@ -102,13 +95,10 @@ public class Domain<K> extends Graph<K> {
 	public void addRegionToVisit(int pBountyHunterID, String pRegionToVisitID){}
 
 	/**
-	 * Tells every bounty hunter to return home.
+	 * Tells the bounty hunter to return home.
 	 */
 	public void recallBountyHunter(){
-		SimpleList<BountyHunter> tempList = this._MyBountyHunters;
-		for (int i = 0; i < this._MyBountyHunters.length();i++){
-			tempList.deleteHead().returnHome();
-		}
+		
 	}
 
 
@@ -117,13 +107,6 @@ public class Domain<K> extends Graph<K> {
 	 * @param pBountyHunterID the ID of the Bounty hunter.	
 	 */
 	public void setNewMision(int pBountyHunterID, Region RegionToVisit){
-		SimpleList<BountyHunter> temp = this._MyBountyHunters;
-		for (int i = 0; i < this._MyBountyHunters.length();i++){
-			BountyHunter tempHunter = temp.deleteHead();
-			if (tempHunter.getID() == pBountyHunterID){
-				tempHunter.setNewTargetRegion(RegionToVisit);
-			}
-		}
 	}
 	
 	
