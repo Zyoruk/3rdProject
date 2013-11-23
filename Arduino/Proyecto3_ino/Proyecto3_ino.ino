@@ -45,6 +45,8 @@ IPAddress ip(192,168,0,144);
 // that you want to connect to (port 80 is default for HTTP):
 EthernetClient client;
 
+
+
 void setup() {
   
  pinMode(ledPin0, OUTPUT);
