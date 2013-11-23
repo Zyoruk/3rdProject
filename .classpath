@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="GeneralStructures"/>
-	<classpathentry kind="src" path="Project Strucutures"/>
+	<classpathentry kind="src" path="Project Structures"/>
 	<classpathentry kind="src" path="Tests"/>
 	<classpathentry kind="src" path="Features"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

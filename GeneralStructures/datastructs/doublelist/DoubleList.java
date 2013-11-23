@@ -5,12 +5,17 @@ import java.util.Iterator;
 
 import datastructs.interfaces.ListInterface;
 
+/**
+ * 
+ * @author Daniel
+ *A class that creates a Double List this is an structure that will store data
+ * @param <K>
+ */
 public class DoubleList<K> implements ListInterface<K>, Iterable<K> {
     
-    //    protected double _start;
-//    protected double _end;
+ 
     protected DoubleListNode<K> head;
-protected int length;
+    protected int length;
     protected DoubleListNode<K> tail;
 
     public DoubleList() {
@@ -19,9 +24,12 @@ protected int length;
         this.tail = null;
     }
     
-    @Override
+    /**
+     * A method that adds data to the DoubleList 
+     * @return boolean
+     */
     public boolean append(K pk) {
-//    	_start = System.currentTimeMillis();
+
         DoubleListNode<K> node = new DoubleListNode<K>(pk);
 
         if(isEmpty()) {
@@ -33,12 +41,14 @@ protected int length;
         }
         this.tail = node;
         this.length += 1;
-//        _end = System.currentTimeMillis();
-//        System.out.println("Append lasted:  " + getExecuteTime());
+
         return true;
     }
 
-    @Override
+    /**
+     *A method that erase all the elements on the DoubleList
+     *@return boolean
+     */
     public boolean clear() {
         DoubleListNode<K> temp = null;
         while(this.head != null) {
@@ -51,13 +61,15 @@ protected int length;
         return true;
     }
 
-    //Erase last node
-	@Override
+    /**
+     * Method that Erase last node of the DoubleList
+     * @return K
+     */
+	
 	public K cut() {
-//		_start = System.currentTimeMillis();
+
 		if (this.tail == null){
-//			_end = System.currentTimeMillis();
-//			System.out.println("Cut lasted:  " + getExecuteTime());
+
 			return this.tail.getElem();
 		} else if (this.tail.getPrevious() == null){
 			this.head = null;
@@ -67,68 +79,66 @@ protected int length;
 			this.tail.setNext(null);
 		}
 		this.length--;
-//		_end = System.currentTimeMillis();
-//		System.out.println("Cut lasted:  " + getExecuteTime());
+
 		return this.tail.getElem();
 	}
 
-    //Erase first node
-	@Override
+    /**
+     * Method that erase the first node on the DoubleList 
+     * @return boolean
+     */
 	public boolean delete() {
-//		_start = System.currentTimeMillis();
-		//Set tmp list
+
         DoubleListNode<K> node = this.head.getNext();
         
-        //Destroy
+        
         this.head.getNext().setPrevious(null);
         this.head = null;
                 
-        //Set new list
+        
         this.head = node;
-//        _end = System.currentTimeMillis();
-//        System.out.println("Delete lasted:  " + getExecuteTime());
+
         return true;
 	}
 
-    @Override
+    /**
+     * Method that erase an specific node on the DoubleList
+     * @return boolean
+     */
     public boolean delete(K pk) {
-//    	_start = System.currentTimeMillis();
+
         if(isEmpty()) {
-//        	_end = System.currentTimeMillis();
-//        	System.out.println("Delete lasted:  " + getExecuteTime());
+
             return false;
         }
         if(this.length == 1) {
             if(this.head.getElem().equals(pk)) {
                 clear();
                 this.length -= 1;
-//                _end = System.currentTimeMillis();
-//                System.out.println("Delete lasted:  " + getExecuteTime());
+
                 return true;
             }
-//            _end = System.currentTimeMillis();
-//            System.out.println("Delete lasted:  " + getExecuteTime());
+
             return false;
         }
         
         DoubleListNode<K> current = this.head;
         while(current != null) {
             if(current.getElem().equals(pk)) {
-                // Remove node
+               
                 if(current == this.tail){
                 	this.tail = current.getPrevious();
                 	current.getPrevious().setNext(current.getNext());
                 	this.length -= 1;
-//                	_end = System.currentTimeMillis();
-//                	System.out.println("Delete lasted:  " + getExecuteTime());
+
+
                 	return true;
                 }
                 if (current == this.head){
                 	this.head = current.getNext();
                 	current.getNext().setPrevious(current.getPrevious());
                 	this.length -= 1;
-//                	_end = System.currentTimeMillis();
-//                	System.out.println("Delete lasted:  " + getExecuteTime());
+
                 	return true;
                 }
                 current.getPrevious().setNext(current.getNext());
@@ -136,18 +146,19 @@ protected int length;
                 current.setNext(null);
                 current = null;
                 this.length -= 1;
-//                _end = System.currentTimeMillis();
-//                System.out.println("Delete lasted:  " + getExecuteTime());
+
                 return true;
             }            
             current = current.getNext();
         }        
-//        _end = System.currentTimeMillis();
-//        System.out.println("Delete lasted:  " + getExecuteTime());
+
         return false;
     }
 
-    @Override
+    /**
+     * Method that shows the information of the DoubleList 
+     * @return String
+     */
 	public String describe() {
         StringBuilder result = new StringBuilder();
 
@@ -168,41 +179,45 @@ protected int length;
         return result.toString();
     }
 
-    @Override
+    /**
+     * Method that shows true if an element of the list that was
+     * search exists on the DoubleList  
+     * @return boolean
+     */
     public boolean exists(K pk) {
-//    	_start = System.currentTimeMillis();
+
         for(K ck : this) {
             if(ck.equals(pk)) {
-//            	_end = System.currentTimeMillis();
-//            	System.out.println("Search lasted:  " + getExecuteTime());
+
                 return true;
             }
         }
-//        _end = System.currentTimeMillis();
-//        System.out.println("Search lasted:  " + getExecuteTime());
+
         return false;
     }
     
-    @Override
+    /**
+     * Method that insert a node on a specific position on the 
+     * DoubleList 
+     * @return boolean
+     */
     public boolean insert(int pos, K pk) {
-//    	_start = System.currentTimeMillis();
+
         DoubleListNode<K> node = new DoubleListNode<K>(pk);
         int i;
 
-        // Check valid position
         if((pos < 0) || (pos > this.length)) {
-//        	_end = System.currentTimeMillis();
-//        	System.out.println("Insert lasted:  " + getExecuteTime());
+
             return false;
         }
 
-        // Search position
+  
         DoubleListNode<K> current = this.head;
         for(i = 0; i != pos; i++) {
             current = current.getNext();
         }
         
-        // Insert node
+  
         if(this.length == i){
             this.tail.setNext(node);
             node.setPrevious(this.tail);
@@ -215,66 +230,81 @@ protected int length;
             }
         }
 
-        // Check head
+  
         if(current == this.head) {
             this.head = node;
         }
-        // Check tail
+     
         if(this.length == i){
             this.tail = tail.getNext();
         }
         this.length += 1;
-//        _end = System.currentTimeMillis();
-//        System.out.println("Insert lasted:  " + getExecuteTime());
+
         return true;
     }
     
-    @Override
+    /**
+     * Method that insert on the first place of the DoubleList 
+     * @return boolean
+     */
     public boolean insert(K pk) {
-//    	_start = System.currentTimeMillis();
+
         DoubleListNode<K> node = new DoubleListNode<K>(pk);
 
-        // Insert node
         if (this.head == null){
         	this.tail = node;
         }else{
         	node.setNext(this.head);
         	this.head.setPrevious(node);
         }
-        // Check head
+
         this.head = node;
 
         this.length += 1;
-//        _end = System.currentTimeMillis();
-//        System.out.println("Insert lasted:  " + getExecuteTime());
+
         return true;
 	}
     
-    @Override
+    /**
+     * Method that shows if the double list is empty
+     * @return boolean
+     */
     public boolean isEmpty() {
         return this.head == null;
     }
-    @Override
+    /**
+     * Method that makes iterable the double list
+     * @return Iterator<K>
+     */
     public Iterator<K> iterator() {
         return new DoubleListIterator<K>(this);
     }
 
-	@Override
+	/**
+	 * Method that return the length of the 
+	 * Double list 
+	 * @return int
+	 */
     public int length() {
         return this.length;
     }
-
+    /**
+     * Method that return the element of the
+     * head 
+     * @return String
+     */
 	public String returnElem(){
     	return (String) this.head.getElem();
     }
 
-//	@Override
-//	public double getExecuteTime() {
-//		double executeTime = _end - _start;
-//		return executeTime;
-//	}
-}
 
+}
+/**
+ * Class that implements a iterable double list 
+ * @author Daniel
+ *
+ * @param <K>
+ */
 class DoubleListIterator<K> implements Iterator<K> {
 
     DoubleListNode<K> current;
@@ -285,7 +315,11 @@ class DoubleListIterator<K> implements Iterator<K> {
         this.current = null;
     }
     
-    @Override
+    /**
+     * Method that shows if a node 
+     * next position is a node
+     * @return boolean
+     */
     public boolean hasNext() {
         
         if(this.current == null) {
@@ -300,7 +334,10 @@ class DoubleListIterator<K> implements Iterator<K> {
         return this.current != null;
     }
 
-    @Override
+    /**
+     * Method that return next node
+     * @ K
+     */
     public K next() {
         if(this.current == null) {
             return null;
@@ -308,7 +345,9 @@ class DoubleListIterator<K> implements Iterator<K> {
         return this.current.getElem();
     }
 
-    @Override
+    /**
+     * Method that removes a node 
+     */
     public void remove() {
         throw new UnsupportedOperationException();
     }

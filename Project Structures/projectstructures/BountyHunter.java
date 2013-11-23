@@ -1,6 +1,12 @@
 package projectstructures;		
 
 
+/**
+ * Class that it the BountyHunter of the game
+ * Where's my arduino 
+ * @author zyoruk
+ *
+ */
 public class BountyHunter {
 	private String _HomeDomain;
 	private String _ForeignDomain;
@@ -20,19 +26,33 @@ public class BountyHunter {
 		this._MyID = 007;
 		pWhereToBeCreated.setBountyHunter(this);
 	}
-	
+	/**
+	 * Method that returns all the points that 
+	 * the BountyHunter have catch through all the 
+	 * game 
+	 * @return
+	 */
 	public int returnPoints(){
 		int PointsToReturn = this._Bounty;
 		this._Bounty = 0;
 		return PointsToReturn;
 	}
-	
+	/**
+	 * Method that return a BountyHunter of
+	 * a region
+	 * @param currentRegion
+	 * @return
+	 */
 	public int takeBounty(Region currentRegion){
 			this._Bounty = this._Bounty + currentRegion.getBounty();	
 			currentRegion.setBounty(0);
 			return this._Bounty;
 	}
-	
+	/**
+	 * Method that indicates to the BountyHunter to 
+	 * go to his home
+	 * @return
+	 */
 	public boolean returnHome(){
 		if (this._ForeignDomain != this._HomeDomain){
 			this._ForeignDomain = this._HomeDomain;
@@ -42,21 +62,45 @@ public class BountyHunter {
 			return false;
 		}		
 	}
-	
-	public boolean NewMissionAvailable(Region<String> newRegionToVisit){
-		if (this._TargetRegion == this._ForeignRegion){
-			this._TargetRegion = newRegionToVisit.getID();
+	/**
+	 * Method that gives a new mission to the
+	 * BountyHunter that makes him move to an 
+	 * Arduino using Dijkstra in order to get
+	 * the shortest way to it.
+	 * @param newRegionToVisit
+	 * @return
+	 */
+	public boolean receiveNewMission(Region<String> newRegionToVisit){
+		if (!(this._PlacesToVisit.exists(newRegionToVisit))){
+			this._PlacesToVisit.append(newRegionToVisit);
 			return true;
 		}else{
 			System.out.println("Can't take a new mission");
 			return false;
 		}
 	}
-	
-	public String getForeignRegion(){
+	/**
+	 * Method that set a new region as a
+	 * target for the BountyHunter 
+	 * @param newTargetRegion
+	 */
+	public void setNewTargetRegion(Region<String> newTargetRegion){
+		this._TargetRegion = newTargetRegion.getID();
+		
+	}
+	/**
+	 * Method that return where is the
+	 * BountyHunter 
+	 * @return
+	 */
+	public String getPosition(){
 		return this._ForeignRegion;
 	}
-	
+	/**
+	 * Method that returns the ID of
+	 * the BountyHUnter 
+	 * @return
+	 */
 	public int getID(){
 		return this._MyID;
 	}

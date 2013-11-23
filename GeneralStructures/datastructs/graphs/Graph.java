@@ -73,7 +73,7 @@ public class Graph<K> implements DataStructure<K> {
 				this._EdgeList.append(LinkToAdd);
 				fromVertex.connectTo(toVertex, pWeight);
 
-			}else {
+			} else {
 
 				for (int i = 0; i < this._EdgeList.length(); i++) {
 					try {
@@ -234,7 +234,11 @@ public class Graph<K> implements DataStructure<K> {
 		}
 		return null;
 	}
-	
+	/**
+	 * Method that remove a Link on the Graph
+	 * @param pFromNode
+	 * @param pToNode
+	 */
 	public void removeLink(K pFromNode , K pToNode){
 		try{
 			SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
@@ -252,7 +256,11 @@ public class Graph<K> implements DataStructure<K> {
 			System.out.println("Can't remove");
 		}
 	}
-	
+	/**
+	 * Method that clear the references of
+	 * the graph 
+	 * @param vertex
+	 */
 	private void clearReferences(Vertex<K> vertex){
 		SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
 		for (int i = 0 ; i< this._EdgeList.length();i++){
@@ -263,7 +271,10 @@ public class Graph<K> implements DataStructure<K> {
 			}
 		}
 	}
-	
+	/**
+	 * Method that get the unprocessed nodes
+	 * @return SimpleList<Vertex<K>> 
+	 */
 	public SimpleList<Vertex<K>> getUnVisitedOnes(){
 		SimpleList<Vertex<K>> unprocessed = new SimpleList<Vertex<K>>();
 		for (Vertex<K> k : this._NodeList){
@@ -273,7 +284,10 @@ public class Graph<K> implements DataStructure<K> {
 		}
 		return unprocessed;
 	}
-	
+	/**
+	 * Method that return the processed nodes 
+	 * @return SimpleList<Vertex<K>> 
+	 */
 	public SimpleList<Vertex<K>> getProcessedOnes(){
 		SimpleList<Vertex<K>> Processed = new SimpleList<Vertex<K>>();
 		for (Vertex<K> k : this._NodeList){
@@ -283,7 +297,10 @@ public class Graph<K> implements DataStructure<K> {
 		}
 		return Processed;
 	}
-	
+	/**
+	 * Method that set a node as processed 
+	 * @param data
+	 */
 	public void setAsProcessed(K data){
 		Vertex<K> ToSet = this.getVertexThatContains(data);
 		ToSet.setIfProcessed(true);
