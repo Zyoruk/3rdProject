@@ -246,6 +246,51 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
 //        System.out.println("Insert lasted:  " + getExecuteTime());
         return true;
     }
+    
+    /**
+     * Method that insert a node on a specific position 
+     */
+    public boolean replace(int pos, K pk) {
+//    	_start = System.currentTimeMillis();
+
+        SimpleListNode<K> node = new SimpleListNode<K>(pk);
+
+        // Check valid position
+        if((pos < 0) || (pos > this.length)) {
+//        	_end = System.currentTimeMillis();
+//        	System.out.println("Insert lasted:  " + getExecuteTime());
+            return false;
+        }
+
+        // Search position
+        SimpleListNode<K> previous = null;
+        SimpleListNode<K> current = this.head;
+        for(int i = 0; i != pos; i++) {
+            previous = current;
+            current = current.getNext();
+        }
+
+        // Insert node
+        node.setNext(current.getNext());
+        if(previous != null) {
+        	previous.setNext(null);
+            previous.setNext(node);
+        }
+
+        // Check head
+        if(current == this.head) {
+            this.head = node;
+        }
+        // Check tail
+        if(previous == this.tail) {
+            this.tail = node;
+        }
+
+        this.length += 1;
+//        _end = System.currentTimeMillis();
+//        System.out.println("Insert lasted:  " + getExecuteTime());
+        return true;
+    }
 
     /**
      * Method that insert a node on the list 

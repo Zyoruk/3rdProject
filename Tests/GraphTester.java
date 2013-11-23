@@ -74,6 +74,13 @@ public class GraphTester<K> {
 		this.ourGraph.addNode(vertex9);
 		this.ourGraph.addNode(vertex0);
 		
+		ourGraph.linkNodes("A", "B", 45);
+		ourGraph.linkNodes("B", "C", 50);
+		ourGraph.linkNodes("C", "D", 4);
+		ourGraph.linkNodes("D", "E", 5);
+		ourGraph.linkNodes("E", "F", 3);
+		
+		
 		return this.ourGraph;
 	}
 	

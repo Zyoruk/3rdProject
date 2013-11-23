@@ -1,6 +1,7 @@
 package datastructs.graphs;
 
 import datastructs.simplelist.SimpleList;
+import datastructs.simplelist.SimpleListNode;
 
 
 public class Dijkstra <K> {
@@ -52,16 +53,29 @@ public class Dijkstra <K> {
 				//If current and start nodes are not the same
 				if (!this.startNode.getElement().equals(k.getElement())){
 					
-					k.getElement() == list de adyacencia
-							dadVertexes.insert(i, this.startNode);
-					
+					//Iterates over startnode adjacent list
+					for(SimpleListNode<Vertex<K>> current = 
+							startNode.getAdjacentVertexes().getHead(); 
+						current != null; current = current.getNext()){
+						
+						//checks to establish node dad
+						if(k.getElement().equals(current.getElem().getElement())){
+							dadVertexes.replace(index, this.startNode);
+							this.arrayDistances[index] = weightEvaluation(this.arrayDistances[index] , this.startNode ,current.getElem());
+							
+						}
+					}
 				}else{
-					this.arrayDistances[i] = 0; //assign lenght 0
+					this.arrayDistances[index] = 0; //assign lenght 0
+					
 				}
+				index++;
 			}
 			this.startNode = getNextLighterNode();
 			this.startNode.setIfProcessed(true);
 		}
+		System.out.println(this.arrayDistances.length);
+		System.out.println(this.dadVertexes.describe());
 	}
 
 	
@@ -91,6 +105,22 @@ public class Dijkstra <K> {
 			}
 		}
 		return vertex;
+	}
+	
+	private int weightEvaluation(int i , Vertex<K> startNode , Vertex<K> toNode){
+		for ( Edge<K> k : this.graph.getEdges()){
+			if (k.getFromNode().getElement() == startNode.getElement() && k.getToNode().getElement() == toNode.getElement()){
+				if(k.getWeight() < this.distance + i){
+					i = k.getWeight();
+					distance = distance + i;
+					return i;
+				}else{
+					break;
+				}
+			}
+		}
+		return i;
+		
 	}
 	
 }
