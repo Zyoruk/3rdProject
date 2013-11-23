@@ -11,38 +11,32 @@ public class GraphTester<K> {
 	@Test
 	public void test() {
 
-		System.out.println("Test Begin \n");
-		System.out.println(ourGraph.describe()+ "\n");
+//		System.out.println("Test Begin \n");
+//		System.out.println(ourGraph.describe()+ "\n");
 		
-		System.out.println("Is there a node <A>? " + ourGraph.exists("A"));
-		System.out.println("Is there a node <Z>? " + ourGraph.exists("Z"));
-		System.out.println("Is there a node <B>? " + ourGraph.exists("B"));
-		System.out.println("Is there a node <as>? " + ourGraph.exists("as"));
-		System.out.println("Is there a node <C>? " + ourGraph.exists("C"));
-		System.out.println("Is there a node <J>? " + ourGraph.exists("J"));
-		
-		
-		ourGraph.linkNodes("A", "B", 45);
-		ourGraph.linkNodes("B", "C", 50);
-		ourGraph.linkNodes("C", "D", 4);
-		ourGraph.linkNodes("D", "E", 5);
-		ourGraph.linkNodes("E", "F", 3);
-		System.out.println("Number of vertexes" + ourGraph.getOrder() + "\n");
-		System.out.println("Number of edges" + ourGraph.getSize() + "\n");
+//		System.out.println("Is there a node <A>? " + ourGraph.exists("A"));
+//		System.out.println("Is there a node <Z>? " + ourGraph.exists("Z"));
+//		System.out.println("Is there a node <B>? " + ourGraph.exists("B"));
+//		System.out.println("Is there a node <as>? " + ourGraph.exists("as"));
+//		System.out.println("Is there a node <C>? " + ourGraph.exists("C"));
+//		System.out.println("Is there a node <J>? " + ourGraph.exists("J"));
+//		
+//		System.out.println("Number of vertexes" + ourGraph.getOrder() + "\n");
+//		System.out.println("Number of edges" + ourGraph.getSize() + "\n");
 				
+
 		ourGraph.removeVertex("A");
 		ourGraph.removeVertex("D");
-		System.out.println(ourGraph.describe());
+		ourGraph.removeVertex("I");
+		ourGraph.removeVertex("H");
 		
-		ourGraph.removeLink("A", "B");
-		ourGraph.removeLink("A", "B");
 		ourGraph.removeLink("B", "C");
 		
-		System.out.println(ourGraph.getSize());
+//		System.out.println(ourGraph.getSize());
+//		
+//		System.out.println(ourGraph.describe());
 		
-		System.out.println(ourGraph.describe());
-		
-		ourGraph.Dijsktra("E", "F");
+		System.out.println(ourGraph.Dijsktra("E", "F").getShortestPath("E", "F"));
 
 		
 	}
@@ -75,10 +69,35 @@ public class GraphTester<K> {
 		this.ourGraph.addNode(vertex0);
 		
 		ourGraph.linkNodes("A", "B", 45);
-		ourGraph.linkNodes("B", "C", 50);
+		ourGraph.linkNodes("A", "D", 13);
+		ourGraph.linkNodes("A", "F", 4);
+		ourGraph.linkNodes("A", "H", 16);
+		
+		ourGraph.linkNodes("B", "C", 31);
+		ourGraph.linkNodes("B", "J", 31);
+		ourGraph.linkNodes("B", "D", 31);
+		
+		ourGraph.linkNodes("D", "J", 31);
+		
 		ourGraph.linkNodes("C", "D", 4);
-		ourGraph.linkNodes("D", "E", 5);
+		ourGraph.linkNodes("C", "I", 4);
+		
 		ourGraph.linkNodes("E", "F", 3);
+		ourGraph.linkNodes("E", "C", 3);
+		
+		ourGraph.linkNodes("G", "D", 13);
+		ourGraph.linkNodes("G", "E", 17);
+		ourGraph.linkNodes("G", "F", 21);
+		ourGraph.linkNodes("G", "H", 23);
+		
+		ourGraph.linkNodes("H", "G", 1);
+		ourGraph.linkNodes("H", "F", 33);
+		
+		ourGraph.linkNodes("I", "G", 34);
+		ourGraph.linkNodes("I", "C", 44);
+		ourGraph.linkNodes("I", "H", 2);
+		
+		ourGraph.linkNodes("J", "B", 13);
 		
 		
 		return this.ourGraph;

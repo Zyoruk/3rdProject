@@ -41,18 +41,28 @@ public class Graph<K> implements DataStructure<K> {
 	 * 
 	 * @return removed vertex.
 	 */
-	public Vertex<K> removeVertex(K pData) {
-		Vertex<K> vertex = getVertexThatContains(pData);
-		if (vertex != null) {
-			this._NodeList.delete(vertex);
-			this.clearReferences(vertex);
-			return vertex;
-		} else {
-			System.out.println("There was no vertex to remove");
-			return null;
+	public boolean removeVertex(K pData) {
+		for(Vertex<K> k : this._NodeList){
+			if(k.getElement() == pData){
+				this.removeEdges(pData);
+				this._NodeList.delete(k);
+				return true;
+			}
 		}
+		return false;
 	}
 
+	private void removeEdges(K pData){
+		for (Vertex<K> k : this._NodeList){
+			for (Edge<K> J : this._EdgeList){
+				if (J.getFromNode().getElement() == pData){
+					this._EdgeList.delete(J);
+				}else if (J.getToNode().getElement() == pData){
+					this._EdgeList.delete(J);
+				}
+			}
+		}
+	}
 	/**
 	 * Connects two nodes. If the existent link between those two nodes is the
 	 * exactly the same, then it doesnt perform the action.
@@ -149,19 +159,14 @@ public class Graph<K> implements DataStructure<K> {
 			}
 		}
 		result.append("\nEdges: \n");
-		SimpleListNode<Edge<K>> temporalEdge = this._EdgeList.getHead();
-		for ( int i = 0 ; i < this._EdgeList.length();i++){
+		for (Edge<K> k : this._EdgeList){
 			result.append("From: ");
-			result.append(String.format("%s ", temporalEdge.getElem().
-						  getFromNode().getElement().toString()));
+			result.append(String.format("%s ", k.getFromNode().getElement().toString()));
 			result.append(" To: ");
-			result.append(String.format("%s ", temporalEdge.getElem().
-						  getToNode().getElement().toString()));
+			result.append(String.format("%s ", k.getToNode().getElement().toString()));
 			result.append("Weight: ");
-			result.append(String.format("%s ", temporalEdge.getElem()
-						  .getWeight()));
+			result.append(String.format("%s ", k.getWeight()));
 			result.append("\n");
-			temporalEdge = temporalEdge.getNext();
 		}
 		return result.toString();
 	}
@@ -241,14 +246,12 @@ public class Graph<K> implements DataStructure<K> {
 	 */
 	public void removeLink(K pFromNode , K pToNode){
 		try{
-			SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
-			for (int i = 0 ; i < this._EdgeList.length();i++){
-				if (current.getElem().getFromNode().getElement() == pFromNode &&
-					current.getElem().getToNode().getElement() == pToNode){
-					this._EdgeList.delete(current.getElem());
+			for (Edge<K> k : this._EdgeList){
+				if (k.getFromNode().getElement() == pFromNode &&
+					k.getToNode().getElement() == pToNode){
+					this._EdgeList.delete(k);
 					System.out.println("removed");
 				}else{
-					current = current.getNext();
 					System.out.println("Nothing to remove");
 				}
 			}
@@ -256,21 +259,7 @@ public class Graph<K> implements DataStructure<K> {
 			System.out.println("Can't remove");
 		}
 	}
-	/**
-	 * Method that clear the references of
-	 * the graph 
-	 * @param vertex
-	 */
-	private void clearReferences(Vertex<K> vertex){
-		SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
-		for (int i = 0 ; i< this._EdgeList.length();i++){
-			if ( current.getElem().getFromNode() == vertex | current.getElem().getToNode()== vertex){
-				this._EdgeList.delete(current.getElem());
-			}else{
-				current = current.getNext();
-			}
-		}
-	}
+
 	/**
 	 * Method that get the unprocessed nodes
 	 * @return SimpleList<Vertex<K>> 
@@ -327,10 +316,10 @@ public class Graph<K> implements DataStructure<K> {
 	 *            Since we need to know all the methods of it and its current
 	 *            lists.
 	 */
-	public void Dijsktra(K fromNode, K toNode) {
+	public Dijkstra Dijsktra(K fromNode, K toNode) {
 
-		Dijkstra<K> Dijkstra = new Dijkstra(this.getVertexThatContains(fromNode),this.getVertexThatContains(toNode),this);
+		Dijkstra<K> Dijkstra = new Dijkstra<K>(this.getVertexThatContains(fromNode),this);
 		Dijkstra.execute();
+		return Dijkstra;
 	}
-
 }

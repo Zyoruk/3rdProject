@@ -19,6 +19,7 @@ public class Vertex<K> {
 	}
 
 	public Vertex(K pElement, Graph<K> pOwnerGraph) {
+		this.adjacentVertexes = new SimpleList<Vertex<K>>();
 		this._element = pElement;
 		this._vertexPointers = new SimpleList<Edge<K>>();
 		this._Processed = false;

@@ -267,11 +267,19 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         SimpleListNode<K> current = this.head;
         for(int i = 0; i != pos; i++) {
             previous = current;
-            current = current.getNext();
+            try{
+            	current = current.getNext();
+            }catch(NullPointerException e){
+            	current = null;
+            }
         }
 
-        // Insert node
-        node.setNext(current.getNext());
+        // Insert node        
+        try{
+        	node.setNext(current.getNext());
+        }catch(NullPointerException e){
+        	node.setNext(null);
+        }
         if(previous != null) {
         	previous.setNext(null);
             previous.setNext(node);
@@ -285,8 +293,6 @@ public class SimpleList<K> implements ListInterface<K>, Iterable<K> {
         if(previous == this.tail) {
             this.tail = node;
         }
-
-        this.length += 1;
 //        _end = System.currentTimeMillis();
 //        System.out.println("Insert lasted:  " + getExecuteTime());
         return true;

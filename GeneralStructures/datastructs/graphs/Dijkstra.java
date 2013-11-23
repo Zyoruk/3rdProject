@@ -6,26 +6,23 @@ import datastructs.simplelist.SimpleListNode;
 
 public class Dijkstra <K> {
 	private Vertex<K> startNode;
-	private Vertex<K> toNode;
 	private Graph<K> graph;
-//	private SimpleList<Vertex<K>> unprocessed;
-//	private SimpleList<Vertex<K>> processed;
-//	private String[][] arrayVertexes;
 	private SimpleList<Vertex<K>> dadVertexes;
 	private int[] arrayDistances;
 	private int distance;
 	private int index;
+	SimpleList<Vertex<K>> path;
 	
-	public Dijkstra(Vertex<K> pstartNode ,Vertex<K> toEndNode, Graph<K> pgraph){
+	public Dijkstra(Vertex<K> pstartNode, Graph<K> pgraph){
 		this.index = 0;
 		this.graph = pgraph;
+		path = new SimpleList<Vertex<K>>();
 		
 		//Set start node visited
-		pgraph.getVertex(pstartNode).setIfProcessed(true);
+//		pgraph.getVertex(pstartNode).setIfProcessed(true);
 		
 		//Sets starting and ending nodes
 		this.startNode = evaluatedNode(pstartNode);
-		this.toNode = pgraph.getVertex(toEndNode);
 
 		// Dijkstra lists
 		this.dadVertexes = new SimpleList<Vertex<K>>();
@@ -45,8 +42,8 @@ public class Dijkstra <K> {
 	public void execute(){
 		
 		//Checks if there are no more visited vertexes
-		while(this.graph.getUnVisitedOnes().length() != 0){
-			
+//		while(this.graph.getUnVisitedOnes().length() != 0){
+		while(index < this.arrayDistances.length){	
 			//Iterates over graph vertexes
 			for (Vertex<K> k : this.graph.getVertexes()){				
 				
@@ -61,6 +58,7 @@ public class Dijkstra <K> {
 						//checks to establish node dad
 						if(k.getElement().equals(current.getElem().getElement())){
 							dadVertexes.replace(index, this.startNode);
+							System.out.println("Hola" + this.graph.getOrder());
 							this.arrayDistances[index] = weightEvaluation(this.arrayDistances[index] , this.startNode ,current.getElem());
 							
 						}
@@ -70,18 +68,18 @@ public class Dijkstra <K> {
 					
 				}
 				index++;
+				System.out.println(index);
 			}
 			this.startNode = getNextLighterNode();
 			this.startNode.setIfProcessed(true);
 		}
-		System.out.println(this.arrayDistances.length);
 		System.out.println(this.dadVertexes.describe());
 	}
 
 	
 	private Vertex<K> evaluatedNode(Vertex<K> node){
 		for(Vertex<K> k : this.graph.getVertexes()){
-			if(k.getElement()== node.getElement()  && !k.getIfProcessed()){
+			if(k.getElement() == node.getElement()  && !k.getIfProcessed()){
 				return k;
 			}
 		}
@@ -121,6 +119,31 @@ public class Dijkstra <K> {
 		}
 		return i;
 		
+	}
+	public SimpleList<Vertex<K>> getdadVertexes(){
+		return this.dadVertexes;
+	}
+	
+	public SimpleList<Vertex<K>> getShortestPath(K start , K end){
+		
+		if(start == end){
+			return this.path;
+		}
+		Vertex<K> beginningNode = this.graph.getVertexThatContains(start);
+		Vertex<K> endNode = this.graph.getVertexThatContains(end);
+		Vertex<K> startNode = endNode;
+		SimpleListNode<Vertex<K>> head = this.graph.getVertexes().getHead();
+		SimpleListNode<Vertex<K>> dad = this.dadVertexes.getHead();
+		while(head.getElem() != startNode){
+			head = head.getNext();
+			dad = dad.getNext();
+		}
+		if (head.getElem() == startNode){
+			path.append(startNode);
+			return getShortestPath(beginningNode.getElement() , dad.getElem().getElement());			
+		}else{
+			return this.path;
+		}
 	}
 	
 }
