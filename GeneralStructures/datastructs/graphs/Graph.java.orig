@@ -1,5 +1,7 @@
 package datastructs.graphs;
 
+import networking.Client;
+import networking.Server;
 import datastructs.interfaces.DataStructure;
 import datastructs.simplelist.SimpleList;
 import datastructs.simplelist.SimpleListNode;
@@ -8,19 +10,23 @@ import datastructs.simplelist.SimpleListNode;
  * A graph is a structure that contains vertexes,and edges. There are several
  * methods a graph provides us.
  * 
- * @author zyoruk
+ * @author zyoruk, jeukel
  * 
  * @param <K>
  *            which means that the graph can contain different types of data.
  */
 public class Graph<K> implements DataStructure<K> {
 
-	private SimpleList<Vertex<K>> _NodeList;
-	private SimpleList<Edge<K>> _EdgeList;
+	protected SimpleList<Vertex<K>> _NodeList;
+	protected SimpleList<Edge<K>> _EdgeList;
+	protected Client<?> client;
+	protected Server server;
 
 	public Graph() {
 		this._NodeList = new SimpleList<Vertex<K>>();
 		this._EdgeList = new SimpleList<Edge<K>>();
+		this.client = new Client<Object>();
+		this.server = new Server();
 	}
 
 	/**
@@ -31,8 +37,9 @@ public class Graph<K> implements DataStructure<K> {
 	 */
 	public void addNode(Vertex<K> pNewNode) {
 		
-		if (this._NodeList.exists(pNewNode) == false) {
+		if (!this._NodeList.exists(pNewNode)) {
 			this._NodeList.append(pNewNode);
+			this.client.start("create node");
 		}
 	}
 
@@ -41,18 +48,41 @@ public class Graph<K> implements DataStructure<K> {
 	 * 
 	 * @return removed vertex.
 	 */
+<<<<<<< HEAD
+	public boolean removeVertex(K pData) {
+		for(Vertex<K> k : this._NodeList){
+			if(k.getElement() == pData){
+				this.removeEdges(pData);
+				this._NodeList.delete(k);
+				return true;
+			}
+=======
 	public Vertex<K> removeVertex(K pData) {
 		Vertex<K> vertex = getVertexThatContains(pData);
 		if (vertex != null) {
 			this._NodeList.delete(vertex);
 			this.clearReferences(vertex);
+			this.client.start("remove node");
 			return vertex;
 		} else {
 			System.out.println("There was no vertex to remove");
 			return null;
+>>>>>>> 16a4b7a92650593f9dc73ae6f33b3c60795c47e9
 		}
+		return false;
 	}
 
+	private void removeEdges(K pData){
+		for (Vertex<K> k : this._NodeList){
+			for (Edge<K> J : this._EdgeList){
+				if (J.getFromNode().getElement() == pData){
+					this._EdgeList.delete(J);
+				}else if (J.getToNode().getElement() == pData){
+					this._EdgeList.delete(J);
+				}
+			}
+		}
+	}
 	/**
 	 * Connects two nodes. If the existent link between those two nodes is the
 	 * exactly the same, then it doesnt perform the action.
@@ -73,7 +103,7 @@ public class Graph<K> implements DataStructure<K> {
 				this._EdgeList.append(LinkToAdd);
 				fromVertex.connectTo(toVertex, pWeight);
 
-			}else {
+			} else {
 
 				for (int i = 0; i < this._EdgeList.length(); i++) {
 					try {
@@ -149,19 +179,14 @@ public class Graph<K> implements DataStructure<K> {
 			}
 		}
 		result.append("\nEdges: \n");
-		SimpleListNode<Edge<K>> temporalEdge = this._EdgeList.getHead();
-		for ( int i = 0 ; i < this._EdgeList.length();i++){
+		for (Edge<K> k : this._EdgeList){
 			result.append("From: ");
-			result.append(String.format("%s ", temporalEdge.getElem().
-						  getFromNode().getElement().toString()));
+			result.append(String.format("%s ", k.getFromNode().getElement().toString()));
 			result.append(" To: ");
-			result.append(String.format("%s ", temporalEdge.getElem().
-						  getToNode().getElement().toString()));
+			result.append(String.format("%s ", k.getToNode().getElement().toString()));
 			result.append("Weight: ");
-			result.append(String.format("%s ", temporalEdge.getElem()
-						  .getWeight()));
+			result.append(String.format("%s ", k.getWeight()));
 			result.append("\n");
-			temporalEdge = temporalEdge.getNext();
 		}
 		return result.toString();
 	}
@@ -241,14 +266,13 @@ public class Graph<K> implements DataStructure<K> {
 	 */
 	public void removeLink(K pFromNode , K pToNode){
 		try{
-			SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
-			for (int i = 0 ; i < this._EdgeList.length();i++){
-				if (current.getElem().getFromNode().getElement() == pFromNode &&
-					current.getElem().getToNode().getElement() == pToNode){
-					this._EdgeList.delete(current.getElem());
+			for (Edge<K> k : this._EdgeList){
+				if (k.getFromNode().getElement() == pFromNode &&
+					k.getToNode().getElement() == pToNode){
+					this._EdgeList.delete(k);
 					System.out.println("removed");
+					this.client.start("remove link");
 				}else{
-					current = current.getNext();
 					System.out.println("Nothing to remove");
 				}
 			}
@@ -256,31 +280,12 @@ public class Graph<K> implements DataStructure<K> {
 			System.out.println("Can't remove");
 		}
 	}
-	/**
-	 * Method that clear the references of
-	 * the graph 
-	 * @param vertex
-	 */
-	private void clearReferences(Vertex<K> vertex){
-		SimpleListNode<Edge<K>> current = this._EdgeList.getHead();
-		for (int i = 0 ; i< this._EdgeList.length();i++){
-			if ( current.getElem().getFromNode() == vertex | current.getElem().getToNode()== vertex){
-				this._EdgeList.delete(current.getElem());
-			}else{
-				current = current.getNext();
-			}
-		}
-	}
-<<<<<<< HEAD
-	
-	public SimpleList<Vertex<K>> getUnVisitedOnes(){
-=======
+
 	/**
 	 * Method that get the unprocessed nodes
 	 * @return SimpleList<Vertex<K>> 
 	 */
-	public SimpleList<Vertex<K>> getUnprocessedOnes(){
->>>>>>> c7a490ed02faf4df85a1048715fe484048411738
+	public SimpleList<Vertex<K>> getUnVisitedOnes(){
 		SimpleList<Vertex<K>> unprocessed = new SimpleList<Vertex<K>>();
 		for (Vertex<K> k : this._NodeList){
 			if(!k.getIfProcessed()){
@@ -332,10 +337,14 @@ public class Graph<K> implements DataStructure<K> {
 	 *            Since we need to know all the methods of it and its current
 	 *            lists.
 	 */
-	public void Dijsktra(K fromNode, K toNode) {
+	public Dijkstra Dijsktra(K fromNode, K toNode) {
 
-		Dijkstra<K> Dijkstra = new Dijkstra(this.getVertexThatContains(fromNode),this.getVertexThatContains(toNode),this);
+<<<<<<< HEAD
+		Dijkstra<K> Dijkstra = new Dijkstra<K>(this.getVertexThatContains(fromNode),this);
+=======
+		Dijkstra<K> Dijkstra = new Dijkstra<K>(this.getVertexThatContains(fromNode),this.getVertexThatContains(toNode),this);
+>>>>>>> 16a4b7a92650593f9dc73ae6f33b3c60795c47e9
 		Dijkstra.execute();
+		return Dijkstra;
 	}
-
 }

@@ -1,5 +1,7 @@
 package datastructs.graphs;
 
+import networking.Client;
+import networking.Server;
 import datastructs.interfaces.DataStructure;
 import datastructs.simplelist.SimpleList;
 import datastructs.simplelist.SimpleListNode;
@@ -8,19 +10,23 @@ import datastructs.simplelist.SimpleListNode;
  * A graph is a structure that contains vertexes,and edges. There are several
  * methods a graph provides us.
  * 
- * @author zyoruk
+ * @author zyoruk, jeukel
  * 
  * @param <K>
  *            which means that the graph can contain different types of data.
  */
 public class Graph<K> implements DataStructure<K> {
 
-	private SimpleList<Vertex<K>> _NodeList;
-	private SimpleList<Edge<K>> _EdgeList;
+	protected SimpleList<Vertex<K>> _NodeList;
+	protected SimpleList<Edge<K>> _EdgeList;
+	protected Client<?> client;
+	protected Server server;
 
 	public Graph() {
 		this._NodeList = new SimpleList<Vertex<K>>();
 		this._EdgeList = new SimpleList<Edge<K>>();
+		this.client = new Client<Object>();
+		this.server = new Server();
 	}
 
 	/**
@@ -31,8 +37,9 @@ public class Graph<K> implements DataStructure<K> {
 	 */
 	public void addNode(Vertex<K> pNewNode) {
 		
-		if (this._NodeList.exists(pNewNode) == false) {
+		if (!this._NodeList.exists(pNewNode)) {
 			this._NodeList.append(pNewNode);
+			this.client.start("create node");
 		}
 	}
 
@@ -251,6 +258,7 @@ public class Graph<K> implements DataStructure<K> {
 					k.getToNode().getElement() == pToNode){
 					this._EdgeList.delete(k);
 					System.out.println("removed");
+					this.client.start("remove link");
 				}else{
 					System.out.println("Nothing to remove");
 				}

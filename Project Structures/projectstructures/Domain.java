@@ -5,11 +5,10 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-import datastructs.simplelist.SimpleList;
 import datastructs.graphs.Graph;
 
 /**
- * @author zyoruk
+ * @author zyoruk, jeukel
  * A domain is a computer which contains several regions. It extends from the
  * graph data structure. This will send several messages to bounty hunters and
  * create them, as well.
@@ -43,13 +42,14 @@ public class Domain<K> extends Graph<K> {
 	 */
 	public void askForBountyPoints(){
 		this._MyCurrentPoints = this._MyBountyHunter.returnPoints();
+		this.client.start("return points");
 	}
 
 	/**
 	 * Creates a new BountyHunter, cannot do it directly into a foreign domain.
 	 * @param pWhereToBeCreated is the region to create the bounty hunter.
 	 */	
-	public void createbountyHunter(Region pWhereToBeCreated){
+	public void createbountyHunter(Region<?> pWhereToBeCreated){
 		this._MyBountyHunter = new BountyHunter(this , pWhereToBeCreated);
 	}
 
@@ -60,7 +60,9 @@ public class Domain<K> extends Graph<K> {
 	 * and do the respective operations.
 	 * @param pHaltMessage it is a boolean.
 	 */
-	public void endBountyRecollection(boolean pHaltMessage){}
+	public void endBountyRecollection(boolean pHaltMessage){
+		this.client.start("halt");
+	}
 
 	/**
 	 * We will need to do stuff with the bounty hunter
@@ -98,7 +100,7 @@ public class Domain<K> extends Graph<K> {
 	 * Tells the bounty hunter to return home.
 	 */
 	public void recallBountyHunter(){
-		
+		this.client.start("call back");
 	}
 
 
@@ -106,7 +108,8 @@ public class Domain<K> extends Graph<K> {
 	 * Tells the bounty hunter to visit a new Arduino.
 	 * @param pBountyHunterID the ID of the Bounty hunter.	
 	 */
-	public void setNewMision(int pBountyHunterID, Region RegionToVisit){
+	public void setNewMision(int pBountyHunterID, Region<?> RegionToVisit){
+		this.client.start("new mission");
 	}
 	
 	
